@@ -1,3 +1,8 @@
+function main()
+    local length = tonumber(arg[1])
+    mine_shaft(length)
+end
+
 function move()
     local fuel = turtle.getFuelLevel()
     if fuel == 0 then
@@ -65,4 +70,4 @@ function mine_shaft(length)
     return true
 end
 
-mine_shaft(2)
+main()
