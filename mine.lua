@@ -7,6 +7,7 @@ function tunnel(length)
         end
         count = count + 1
     end
+    return true
 end
 
 function go_to_wall()
@@ -15,9 +16,13 @@ function go_to_wall()
         turtle.forward()
         has_block, data = turtle.inspect()
     end
+    return true
 end
 
 function mine_shaft(length)
     go_to_wall()
     tunnel(length)
+    return true
 end
+
+mine_shaft(20)
