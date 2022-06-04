@@ -59,9 +59,9 @@ end
 
 function mine_shaft(length)
     go_to_wall()
-    tunnel(length)
+    tunnel(length, false)
     turn_around()
-    tunnel(length)
+    tunnel(length, true)
     return true
 end
 
