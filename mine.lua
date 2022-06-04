@@ -28,7 +28,7 @@ function tunnel(segments, torch)
                 turtle.dig()
             end
             move()
-            if torch and count == 5 then
+            if torch and count == 4 then
                 place_torch()
             end
             count = count + 1
