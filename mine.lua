@@ -10,6 +10,13 @@ function move()
 end
 
 function place_torch()
+    turtle.turnLeft()
+    turtle.turnLeft()
+    turtle.select(2)
+    turtle.place()
+    turtle.turnLeft()
+    turtle.turnLeft()
+end
 
 function tunnel(segments, torch)
     local segment_count = 0
@@ -22,12 +29,7 @@ function tunnel(segments, torch)
             end
             move()
             if torch and count == 5 then
-                turtle.turnLeft()
-                turtle.turnLeft()
-                turtle.select(2)
-                turtle.place()
-                turtle.turnLeft()
-                turtle.turnLeft()
+                place_torch()
             end
             count = count + 1
         end
