@@ -30,11 +30,15 @@ function go_to_wall()
     return true
 end
 
-function turn_around
-
-end
-
 function turn_around()
+    has_block, data = turtle.inspectUp()
+    if has_block then
+        turtle.digUp()
+    end
+    turtle.up()
+    turtle.turnLeft()
+    turtle.turnLeft()
+end
 
 function mine_shaft(length)
     go_to_wall()
