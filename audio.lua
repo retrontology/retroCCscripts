@@ -23,12 +23,17 @@ function loop(file, volume)
     local speaker = peripheral.find("speaker")
 
     local decoder = dfpwm.make_decoder()
-    local data = io.lines(file, 16 * 1024)
+    local lines = io.lines(file, 16 * 1024)
+
+    local data = {}
+    local count = 0
+    for chunk in lines do
+        data[count] = decoder(chunk)
+        count = count + 1
+    end
     
     while true do
         for chunk in data do
-            local buffer = decoder(chunk)
-    
             while not speaker.playAudio(buffer, volume) do
                 os.pullEvent("speaker_audio_empty")
             end
