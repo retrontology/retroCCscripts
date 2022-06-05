@@ -19,8 +19,20 @@ function play(file, volume)
 end
 
 function loop(file, volume)
+    local dfpwm = require("cc.audio.dfpwm")
+    local speaker = peripheral.find("speaker")
+
+    local decoder = dfpwm.make_decoder()
+    local data = io.lines(file, 16 * 1024)
+    
     while true do
-        play(file, volume)
+        for chunk in data do
+            local buffer = decoder(chunk)
+    
+            while not speaker.playAudio(buffer, volume) do
+                os.pullEvent("speaker_audio_empty")
+            end
+        end
     end
 end
 
