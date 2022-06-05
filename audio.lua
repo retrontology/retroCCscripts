@@ -1,7 +1,7 @@
 function main()
     local file = arg[1]
     local volume = tonumber(arg[2])
-    loop(file, volume)
+    old_loop(file, volume)
 end
 
 function play(file, volume)
@@ -38,6 +38,12 @@ function loop(file, volume)
                 os.pullEvent("speaker_audio_empty")
             end
         end
+    end
+end
+
+function old_loop(file, volume)
+    while true do
+        play(file, volume)
     end
 end
 
