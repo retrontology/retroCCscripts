@@ -6,6 +6,7 @@ function main()
 end
 
 function play(file)
+    local mon = peripheral.find("monitor")
     local gifs = fs.find("*.gif")  -- Note: fs.find() is case-sensitive, even if your file system isn't.
 
     mon.setTextScale(0.5)
