@@ -16,7 +16,7 @@ function play(file)
     mon.setBackgroundColour(image[1].transparentCol or image.backgroundCol)
     mon.clear()
     
-    GIF.animateGIF(image)
+    GIF.animateGIF(image, math.floor((x - image.width) / 2) + 1, math.floor((y - image.height) / 2) + 1, mon)
 
 end
 
