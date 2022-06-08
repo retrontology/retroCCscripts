@@ -10,7 +10,7 @@ DIRECTIONS = {
 
 COORDINATES = {
     X = 0,
-    Y = 0
+    Y = 0,
     Z = 0
 }
 
@@ -26,45 +26,75 @@ end
 function find_fuel()
     for i=1,16 do
         details = turtle.getItemDetail(i)
-        if details.name == 'minecraft:coal'
-        break
+        if details.name == 'minecraft:coal' or details.name == 'minecraft:charcoal' then
+            return i
     end
+    return nil
 end
 
 function check_fuel(index)
     local fuel = turtle.getFuelLevel()
     if fuel == 0 then
         if index == nil then
-            
+            index = find_fuel()
+            if index == nil then
+                error('RAN OUT OF FUEL!!!')
         end
-        turtle.select(1)
+        turtle.select(index)
         if not turtle.refuel() then
-            error('RAN OUT OF FUEL!!!')
+            error('COULD NOT REFUEL!!!')
         end
     end
 end
 
 function turn_left()
     turtle.turnLeft()
-    direction = (direction - 1) % #DIRECTIONS
+    current_direction = (current_direction - 1) % 4
 end
 
 function turn_right()
     turtle.turnRight()
-    direction = (direction + 1) % #DIRECTIONS
+    current_direction = (current_direction + 1) % 4
 end
 
-function move()
+function move_forward()
     check_fuel()
+    if current_direction == DIRECTIONS.NORTH then
+        COORDINATES.Z = COORDINATES.Z - 1
+    elseif current_direction == DIRECTIONS.EAST then
+        COORDINATES.X = COORDINATES.X + 1
+    elseif current_direction == DIRECTIONS.SOUTH then
+        COORDINATES.Z = COORDINATES.Z + 1
+    elseif current_direction == DIRECTIONS.WEST then
+        COORDINATES.X = COORDINATES.X - 1
+    end
     turtle.forward()
 end
 
-function move_up()
+function move_backward()
+    check_fuel()
+    if current_direction == DIRECTIONS.NORTH then
+        COORDINATES.Z = COORDINATES.Z + 1
+    elseif current_direction == DIRECTIONS.EAST then
+        COORDINATES.X = COORDINATES.X - 1
+    elseif current_direction == DIRECTIONS.SOUTH then
+        COORDINATES.Z = COORDINATES.Z - 1
+    elseif current_direction == DIRECTIONS.WEST then
+        COORDINATES.X = COORDINATES.X + 1
+    end
+    turtle.back()
+end
 
+function move_up()
+    check_fuel()
+    COORDINATES.Y = COORDINATES.Y + 1
+    turtle.up()
 end
 
 function move_down()
-
+    check_fuel()
+    COORDINATES.Y = COORDINATES.Y - 1
+    turtle.down()
 end
 
 function place_torch()
@@ -116,10 +146,13 @@ function tunnel(segments, torch)
         local count = 0
         while count < 8 do
             local has_block, data = turtle.inspect()
-            if has_block then
-                turtle.dig()
+            while has_block do
+                if has_block then
+                    turtle.dig()
+                end
+                has_block, data = turtle.inspect()
             end
-            move()
+            move_forward()
             vein_mine()
             if torch and count == 4 then
                 place_torch()
@@ -134,7 +167,7 @@ end
 function go_to_wall()
     local has_block, data = turtle.inspect()
     while not has_block do
-        move()
+        move_forward()
         has_block, data = turtle.inspect()
     end
     return true
@@ -145,7 +178,7 @@ function turn_around()
     if has_block then
         turtle.digUp()
     end
-    turtle.up()
+    move_up()
     turn_left()
     turn_left()
 end
