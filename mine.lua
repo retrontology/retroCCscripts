@@ -113,8 +113,8 @@ end
 
 function face_direction(target_direction)
     while current_direction ~= target_direction do
-        local left_score = (current_direction - target_direction) % 4
-        local right_score = (target_direction - current_direction) % 4
+        local left_score = ((target_direction - current_direction) + 4) % 4
+        local right_score = ((current_direction - target_direction) + 4) % 4
         if right_score > left_score then
             turn_right()
         else
