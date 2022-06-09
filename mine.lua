@@ -164,7 +164,7 @@ function vein_mine()
         end
         local success, err = move_forward()
         if success then
-            table.insert(current_direction)
+            table.insert(mine_stack, current_direction)
             vein_mine()
         else
             error(err)
@@ -198,7 +198,7 @@ function vein_mine()
         end
         local success, err = move_forward()
         if success then
-            table.insert(current_direction)
+            table.insert(mine_stack, current_direction)
             vein_mine()
         else
             error(err)
@@ -215,7 +215,7 @@ function vein_mine()
         end
         local success, err = move_forward()
         if success then
-            table.insert(current_direction)
+            table.insert(mine_stack, current_direction)
             vein_mine()
         else
             error(err)
