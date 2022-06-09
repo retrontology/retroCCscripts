@@ -151,7 +151,7 @@ function vein_mine()
             table.insert(mine_stack, DIRECTIONS.UP)
             vein_mine()
         else
-            error(err)
+            error(err .. " up")
         end
     end
 
@@ -167,7 +167,7 @@ function vein_mine()
             table.insert(mine_stack, current_direction)
             vein_mine()
         else
-            error(err)
+            error(err .. " forward")
         end
     end
 
@@ -184,7 +184,7 @@ function vein_mine()
             table.insert(mine_stack, current_direction)
             vein_mine()
         else
-            error(err)
+            error(err .. " forward")
         end
     end
 
@@ -201,7 +201,7 @@ function vein_mine()
             table.insert(mine_stack, current_direction)
             vein_mine()
         else
-            error(err)
+            error(err .. " forward")
         end
     end
 
@@ -218,7 +218,7 @@ function vein_mine()
             table.insert(mine_stack, current_direction)
             vein_mine()
         else
-            error(err)
+            error(err .. " up")
         end
     end
 
@@ -234,7 +234,7 @@ function vein_mine()
             table.insert(mine_stack, DIRECTIONS.DOWN)
             vein_mine()
         else
-            error(err)
+            error(err .. " down")
         end
     end
 
@@ -244,18 +244,18 @@ function vein_mine()
         if direction == DIRECTIONS.UP then
             local success, err = move_down()
             if not success then
-                error(err)
+                error(err .. " down")
             end
         elseif direction == DIRECTIONS.DOWN then
             local success, err = move_up()
             if not success then
-                error(err)
+                error(err .. " up")
             end
         else
             face_direction(direction)
             local success, err = move_backward()
             if not success then
-                error(err)
+                error(err .. " backward")
             end
         end
     else
