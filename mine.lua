@@ -5,7 +5,9 @@ DIRECTIONS = {
     NORTH = 0,
     EAST = 1,
     SOUTH = 2,
-    WEST = 3
+    WEST = 3,
+    UP = 4,
+    DOWN = 5
 }
 
 COORDINATES = {
@@ -28,6 +30,7 @@ function find_fuel()
         details = turtle.getItemDetail(i)
         if details.name == 'minecraft:coal' or details.name == 'minecraft:charcoal' then
             return i
+        end
     end
     return nil
 end
@@ -39,6 +42,7 @@ function check_fuel(index)
             index = find_fuel()
             if index == nil then
                 error('RAN OUT OF FUEL!!!')
+            end
         end
         turtle.select(index)
         if not turtle.refuel() then
@@ -82,19 +86,31 @@ function move_backward()
     elseif current_direction == DIRECTIONS.WEST then
         COORDINATES.X = COORDINATES.X + 1
     end
-    turtle.back()
+    return turtle.back()
 end
 
 function move_up()
     check_fuel()
     COORDINATES.Y = COORDINATES.Y + 1
-    turtle.up()
+    return turtle.up()
 end
 
 function move_down()
     check_fuel()
     COORDINATES.Y = COORDINATES.Y - 1
-    turtle.down()
+    return turtle.down()
+end
+
+function face_direction(target_direction)
+    while current_direction ~= target_direction do
+        local left_score = (current_direction - target_direction) % 4
+        local right_score = (target_direction - current_direction) % 4
+        if right_score > left_score then
+            turn_right()
+        else
+            turn_left()
+        end
+    end
 end
 
 function place_torch()
@@ -107,36 +123,112 @@ function place_torch()
 end
 
 function vein_mine()
+
+    -- UP
     local has_block, data = turtle.inspectUp()
-    if has_block then
-
-        vein_mine()
+    if data.tags['forge:ores'] then
+        while has_block do
+            turtle.digUp()
+            has_block, data = turtle.inspectUp()
+        end
+        local success, err = move_up()
+        if success then
+            table.insert(mine_stack, DIRECTIONS.UP)
+            vein_mine()
+        else
+            error(err)
+        end
     end
+
+    -- Left
+    turn_left()
+    local has_block, data = turtle.inspect()
+    if data.tags['forge:ores'] then
+        while has_block do
+            turtle.dig()
+            has_block, data = turtle.inspect()
+        end
+        local success, err = move_up()
+        if success then
+            table.insert(current_direction)
+            vein_mine()
+        else
+            error(err)
+        end
+    end
+
+    -- Behind
+    turn_left()
+    local has_block, data = turtle.inspect()
+    if data.tags['forge:ores'] then
+        while has_block do
+            turtle.dig()
+            has_block, data = turtle.inspect()
+        end
+        local success, err = move_up()
+        if success then
+            table.insert(current_direction)
+            vein_mine()
+        else
+            error(err)
+        end
+    end
+
+    -- Right
+    turn_left()
+    local has_block, data = turtle.inspect()
+    if data.tags['forge:ores'] then
+        while has_block do
+            turtle.dig()
+            has_block, data = turtle.inspect()
+        end
+        local success, err = move_up()
+        if success then
+            table.insert(current_direction)
+            vein_mine()
+        else
+            error(err)
+        end
+    end
+
+    -- Below
     local has_block, data = turtle.inspectDown()
-    if turtle.inspectDown() then
-        
-        vein_mine()
+    if data.tags['forge:ores'] then
+        while has_block do
+            turtle.digDown()
+            has_block, data = turtle.inspectDown()
+        end
+        local success, err = move_down()
+        if success then
+            table.insert(mine_stack, DIRECTIONS.UP)
+            vein_mine()
+        else
+            error(err)
+        end
     end
-    turn_left()
-    local has_block, data = turtle.inspect()
-    if has_block then
 
-        vein_mine()
-    end
-    turn_left()
-    local has_block, data = turtle.inspect()
-    if has_block then
-
-        vein_mine()
-    end
-    turn_left()
-    local has_block, data = turtle.inspect()
-    if has_block then
-
-        vein_mine()
-    end
+    -- Return
     if #mine_stack > 0 then
-        direction = table.remove(mine_stack)
+        local direction = table.remove(mine_stack)
+        if direction == DIRECTIONS.UP then
+            local success, err = move_down()
+            if not success then
+                error(err)
+            end
+        elseif direction == DIRECTIONS.DOWN then
+            local success, err = move_up()
+            if not success then
+                error(err)
+            end
+        else
+            face_direction(direction)
+            local success, err = move_backward()
+            if not success then
+                error(err)
+            end
+        end
+    else
+        face_direction(DIRECTIONS.NORTH)
     end
 end
 
