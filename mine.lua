@@ -27,8 +27,8 @@ end
 
 function find_fuel()
     for i=1,16 do
-        details = turtle.getItemDetail(i)
-        if details.name == 'minecraft:coal' or details.name == 'minecraft:charcoal' then
+        localdetails = turtle.getItemDetail(i)
+        if details and details.name == 'minecraft:coal' or details.name == 'minecraft:charcoal' then
             return i
         end
     end
@@ -37,8 +37,8 @@ end
 
 function find_torch()
     for i=1,16 do
-        details = turtle.getItemDetail(i)
-        if details.name == 'minecraft:torch' then
+        local details = turtle.getItemDetail(i)
+        if details and details.name == 'minecraft:torch' then
             return i
         end
     end
@@ -82,7 +82,7 @@ function move_forward()
     elseif current_direction == DIRECTIONS.WEST then
         COORDINATES.X = COORDINATES.X - 1
     end
-    turtle.forward()
+    return turtle.forward()
 end
 
 function move_backward()
