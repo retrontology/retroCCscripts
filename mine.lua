@@ -139,7 +139,7 @@ function vein_mine()
 
     -- UP
     local has_block, data = turtle.inspectUp()
-    if data.tags['forge:ores'] then
+    if data.tags and data.tags['forge:ores'] then
         while has_block do
             turtle.digUp()
             has_block, data = turtle.inspectUp()
@@ -156,7 +156,7 @@ function vein_mine()
     -- Left
     turn_left()
     local has_block, data = turtle.inspect()
-    if data.tags['forge:ores'] then
+    if data.tags and data.tags['forge:ores'] then
         while has_block do
             turtle.dig()
             has_block, data = turtle.inspect()
@@ -173,7 +173,7 @@ function vein_mine()
     -- Behind
     turn_left()
     local has_block, data = turtle.inspect()
-    if data.tags['forge:ores'] then
+    if data.tags and data.tags['forge:ores'] then
         while has_block do
             turtle.dig()
             has_block, data = turtle.inspect()
@@ -190,7 +190,7 @@ function vein_mine()
     -- Right
     turn_left()
     local has_block, data = turtle.inspect()
-    if data.tags['forge:ores'] then
+    if data.tags and data.tags['forge:ores'] then
         while has_block do
             turtle.dig()
             has_block, data = turtle.inspect()
@@ -206,7 +206,7 @@ function vein_mine()
 
     -- Below
     local has_block, data = turtle.inspectDown()
-    if data.tags['forge:ores'] then
+    if data.tags and data.tags['forge:ores'] then
         while has_block do
             turtle.digDown()
             has_block, data = turtle.inspectDown()
