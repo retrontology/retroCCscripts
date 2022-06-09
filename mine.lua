@@ -137,6 +137,8 @@ end
 
 function vein_mine()
 
+    local saved_direction = current_direction
+
     -- UP
     local has_block, data = turtle.inspectUp()
     if data.tags and data.tags['forge:ores'] then
@@ -257,7 +259,7 @@ function vein_mine()
             end
         end
     else
-        face_direction(DIRECTIONS.NORTH)
+        face_direction(saved_direction)
     end
 end
 
