@@ -153,6 +153,22 @@ function vein_mine()
         end
     end
 
+    -- Forward
+    local has_block, data = turtle.inspect()
+    if data.tags and data.tags['forge:ores'] then
+        while has_block do
+            turtle.dig()
+            has_block, data = turtle.inspect()
+        end
+        local success, err = move_forward()
+        if success then
+            table.insert(current_direction)
+            vein_mine()
+        else
+            error(err)
+        end
+    end
+
     -- Left
     turn_left()
     local has_block, data = turtle.inspect()
@@ -161,9 +177,9 @@ function vein_mine()
             turtle.dig()
             has_block, data = turtle.inspect()
         end
-        local success, err = move_up()
+        local success, err = move_forward()
         if success then
-            table.insert(current_direction)
+            table.insert(mine_stack, current_direction)
             vein_mine()
         else
             error(err)
@@ -178,7 +194,7 @@ function vein_mine()
             turtle.dig()
             has_block, data = turtle.inspect()
         end
-        local success, err = move_up()
+        local success, err = move_forward()
         if success then
             table.insert(current_direction)
             vein_mine()
@@ -195,7 +211,7 @@ function vein_mine()
             turtle.dig()
             has_block, data = turtle.inspect()
         end
-        local success, err = move_up()
+        local success, err = move_forward()
         if success then
             table.insert(current_direction)
             vein_mine()
