@@ -27,7 +27,7 @@ end
 
 function find_fuel()
     for i=1,16 do
-        localdetails = turtle.getItemDetail(i)
+        local details = turtle.getItemDetail(i)
         if details and details.name == 'minecraft:coal' or details.name == 'minecraft:charcoal' then
             return i
         end
