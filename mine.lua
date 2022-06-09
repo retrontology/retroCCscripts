@@ -35,6 +35,16 @@ function find_fuel()
     return nil
 end
 
+function find_torch()
+    for i=1,16 do
+        details = turtle.getItemDetail(i)
+        if details.name == 'minecraft:torch' then
+            return i
+        end
+    end
+    return nil
+end
+
 function check_fuel(index)
     local fuel = turtle.getFuelLevel()
     if fuel == 0 then
@@ -114,12 +124,15 @@ function face_direction(target_direction)
 end
 
 function place_torch()
-    turn_left()
-    turn_left()
-    turtle.select(2)
-    turtle.place()
-    turn_left()
-    turn_left()
+    torch_index = find_torch()
+    if torch_index then
+        turn_left()
+        turn_left()
+        turtle.select(torch_index)
+        turtle.place()
+        turn_left()
+        turn_left()
+    end
 end
 
 function vein_mine()
@@ -257,17 +270,15 @@ function tunnel(segments, torch)
 end
 
 function go_to_wall()
-    local has_block, data = turtle.inspect()
-    while not has_block do
+    while not turtle.detect() do
         move_forward()
-        has_block, data = turtle.inspect()
     end
     return true
 end
 
 function turn_around()
     has_block, data = turtle.inspectUp()
-    if has_block then
+    while turtle.detectUp() do
         turtle.digUp()
     end
     move_up()
@@ -276,7 +287,6 @@ function turn_around()
 end
 
 function mine_shaft(length)
-    go_to_wall()
     tunnel(length, false)
     turn_around()
     tunnel(length, true)
