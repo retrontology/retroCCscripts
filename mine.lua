@@ -295,20 +295,20 @@ function go_to_wall()
 end
 
 function turn_around()
-    local has_block, data = turtle.inspectUp()
+    local has_block, data = turtle.inspectDown()
     while has_block and data.name ~= 'minecraft:water' do
-        turtle.digUp()
-        has_block, data = turtle.inspectUp()
+        turtle.digDown()
+        has_block, data = turtle.inspectDown()
     end
-    move_up()
+    move_down()
     turn_left()
     turn_left()
 end
 
 function mine_shaft(length)
-    tunnel(length, false)
-    turn_around()
     tunnel(length, true)
+    turn_around()
+    tunnel(length, false)
     return true
 end
 
