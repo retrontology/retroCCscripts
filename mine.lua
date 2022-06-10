@@ -142,7 +142,7 @@ function vein_mine()
     -- UP
     local has_block, data = turtle.inspectUp()
     if data.tags and data.tags['forge:ores'] then
-        while has_block do
+        while has_block and data.name ~= 'minecraft:water' do
             turtle.digUp()
             has_block, data = turtle.inspectUp()
         end
@@ -158,7 +158,7 @@ function vein_mine()
     -- Forward
     local has_block, data = turtle.inspect()
     if data.tags and data.tags['forge:ores'] then
-        while has_block do
+        while has_block and data.name ~= 'minecraft:water' do
             turtle.dig()
             has_block, data = turtle.inspect()
         end
@@ -175,7 +175,7 @@ function vein_mine()
     turn_left()
     local has_block, data = turtle.inspect()
     if data.tags and data.tags['forge:ores'] then
-        while has_block do
+        while has_block and data.name ~= 'minecraft:water' do
             turtle.dig()
             has_block, data = turtle.inspect()
         end
@@ -192,7 +192,7 @@ function vein_mine()
     turn_left()
     local has_block, data = turtle.inspect()
     if data.tags and data.tags['forge:ores'] then
-        while has_block do
+        while has_block and data.name ~= 'minecraft:water' do
             turtle.dig()
             has_block, data = turtle.inspect()
         end
@@ -209,7 +209,7 @@ function vein_mine()
     turn_left()
     local has_block, data = turtle.inspect()
     if data.tags and data.tags['forge:ores'] then
-        while has_block do
+        while has_block and data.name ~= 'minecraft:water' do
             turtle.dig()
             has_block, data = turtle.inspect()
         end
@@ -225,7 +225,7 @@ function vein_mine()
     -- Below
     local has_block, data = turtle.inspectDown()
     if data.tags and data.tags['forge:ores'] then
-        while has_block do
+        while has_block and data.name ~= 'minecraft:water' do
             turtle.digDown()
             has_block, data = turtle.inspectDown()
         end
@@ -269,10 +269,8 @@ function tunnel(segments, torch)
         local count = 0
         while count < 8 do
             local has_block, data = turtle.inspect()
-            while has_block do
-                if has_block then
-                    turtle.dig()
-                end
+            while has_block and data.name ~= 'minecraft:water' do
+                turtle.dig()
                 has_block, data = turtle.inspect()
             end
             move_forward()
@@ -288,16 +286,19 @@ function tunnel(segments, torch)
 end
 
 function go_to_wall()
-    while not turtle.detect() do
+    local has_block, data = turtle.inspect()
+    while not has_block and data.name ~= 'minecraft:water' do
         move_forward()
+        has_block, data = turtle.inspect()
     end
     return true
 end
 
 function turn_around()
-    has_block, data = turtle.inspectUp()
-    while turtle.detectUp() do
+    local has_block, data = turtle.inspectUp()
+    while has_block and data.name ~= 'minecraft:water' do
         turtle.digUp()
+        has_block, data = turtle.inspectUp()
     end
     move_up()
     turn_left()
