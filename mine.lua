@@ -1,3 +1,5 @@
+require "retroturtle"
+
 function main()
     local length = tonumber(arg[1])
     mine_shaft(length)
