@@ -11,7 +11,7 @@ function tunnel(segments, torch)
         local count = 0
         while count < 8 do
             local has_block, data = turtle.inspect()
-            while has_block and data.name ~= 'minecraft:water' do
+            while has_block and data.name ~= 'minecraft:water' and data.name ~= 'minecraft:bubble_column' do
                 turtle.dig()
                 has_block, data = turtle.inspect()
             end
@@ -29,7 +29,7 @@ end
 
 function turn_around()
     local has_block, data = turtle.inspectUp()
-    while has_block and data.name ~= 'minecraft:water' do
+    while has_block and data.name ~= 'minecraft:water' and data.name ~= 'minecraft:bubble_column' do
         turtle.digUp()
         has_block, data = turtle.inspectUp()
     end
