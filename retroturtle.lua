@@ -37,7 +37,7 @@ function find_torch()
 end
 
 function find_junk()
-    results = {}
+    local results = {}
     for i=1,16 do
         local details = turtle.getItemDetail(i)
         if details and (details.name == 'minecraft:cobblestone' or details.name == 'minecraft:cobbled_deepslate') then
