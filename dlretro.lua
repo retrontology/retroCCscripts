@@ -13,7 +13,7 @@ PROGRAMS = {
 }
 
 function main()
-    
+
     local base_url = URL
     if arg[1] == nil then
         base_url = base_url .. DEFAULT_BRANCH
@@ -25,7 +25,7 @@ function main()
     fs.makeDir(TEMP_DIR)
     shell.setDir(TEMP_DIR)
 
-    for k,program in PROGRAMS do
+    for k,program in pairs(PROGRAMS) do
         local file_name = program .. '.lua'
         local full_url = base_url .. file_name
         local result = shell.run('wget', full_url)
