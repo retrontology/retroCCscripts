@@ -55,7 +55,7 @@ function main_tunnel(length, width, height)
                 turn_left()
             end
         end
-        z_dir = ~z_dir
+        z_dir = not z_dir
         if odd and i % 2 == 1 then
             turn_right()
         else
