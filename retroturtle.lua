@@ -41,7 +41,7 @@ function find_junk()
     for i=1,16 do
         local details = turtle.getItemDetail(i)
         if details and (details.name == 'minecraft:cobblestone' or details.name == 'minecraft:cobbled_deepslate') then
-            table.insert(results, {index=1, details=details})
+            table.insert(results, {index=i, details=details})
         end
     end
     return results
