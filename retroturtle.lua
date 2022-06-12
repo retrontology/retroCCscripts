@@ -297,3 +297,21 @@ function go_to_wall()
     end
     return true
 end
+
+function run_subroutines(subroutines)
+    for k,v in pairs(subroutines) do
+        local count = multishell.getCount()
+        local running = false
+        for i=1,count do
+            local title = multishell.getTitle(i)
+            if title == v then
+                running = true
+                break
+            end
+        end
+        if not running then
+            local temp = multishell.launch({}, v)
+            multishell.setTitle(temp, v)
+        end
+    end
+end

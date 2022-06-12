@@ -1,6 +1,11 @@
 require "retroturtle"
 
+SUBROUTINES = {
+    'drop_cobble'
+}
+
 function main()
+    run_subroutines(SUBROUTINES)
     local length = tonumber(arg[1])
     mine_shaft(length)
 end
