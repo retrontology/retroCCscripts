@@ -114,6 +114,30 @@ function face_direction(target_direction)
     end
 end
 
+function mine_forward()
+    local has_block, data = turtle.inspect()
+    while has_block do
+        turtle.dig()
+        has_block, data = turtle.inspect()
+    end
+end
+
+function mine_up()
+    local has_block, data = turtle.inspectUp()
+    while has_block do
+        turtle.digUp()
+        has_block, data = turtle.inspectUp()
+    end
+end
+
+function mine_down()
+    local has_block, data = turtle.inspectDown()
+    while has_block do
+        turtle.digDown()
+        has_block, data = turtle.inspectDown()
+    end
+end
+
 function place_torch()
     torch_index = find_torch()
     if torch_index then
