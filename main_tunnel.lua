@@ -28,16 +28,15 @@ function main_tunnel(length, width, height)
     end
 
     local odd = (height % 2) == 1
+    local z_dir = true
 
     for i=1,length do
         mine_forward()
         move_forward()
-        if odd then
-            if i % 2 == 1 then
-                turn_right()
-            else
-                turn_left()
-            end
+        if odd and i % 2 == 1 then
+            turn_right()
+        else
+            turn_left()
         end
         for j=1,height do
             for k=1,width-1 do
@@ -45,18 +44,22 @@ function main_tunnel(length, width, height)
                 move_forward()
             end
             if j ~= height then
-                mine_up()
-                move_up()
+                if z_dir then
+                    mine_up()
+                    move_up()
+                else
+                    mine_down()
+                    move_down()
+                end
                 turn_left()
                 turn_left()
             end
         end
-        if odd then
-            if i % 2 == 1 then
-                turn_right()
-            else
-                turn_left()
-            end
+        z_dir = ~z_dir
+        if odd and i % 2 == 1 then
+            turn_right()
+        else
+            turn_left()
         end
     end
 end
