@@ -14,6 +14,8 @@ PROGRAMS = {
 
 function main()
 
+    local current_dir = shell.dir()
+
     local base_url = URL
     if arg[1] == nil then
         base_url = base_url .. DEFAULT_BRANCH
@@ -38,6 +40,7 @@ function main()
         end
     end
 
+    shell.setDir(current_dir)
     fs.delete(TEMP_DIR)
 
 end
