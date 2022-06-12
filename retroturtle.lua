@@ -310,7 +310,7 @@ function run_subroutines(subroutines)
             end
         end
         if not running then
-            local temp = multishell.launch({}, v .. '.lua')
+            local temp = multishell.launch(_G, v .. '.lua')
             multishell.setTitle(temp, v)
         end
     end
