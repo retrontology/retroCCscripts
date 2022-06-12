@@ -33,10 +33,10 @@ function main_tunnel(length, width, height)
     for i=1,length do
         mine_forward()
         move_forward()
-        if odd and i % 2 == 1 then
-            turn_right()
-        else
+        if odd and i % 2 == 0 then
             turn_left()
+        else
+            turn_right()
         end
         for j=1,height do
             for k=1,width-1 do
@@ -56,10 +56,10 @@ function main_tunnel(length, width, height)
             end
         end
         z_dir = not z_dir
-        if odd and i % 2 == 1 then
-            turn_right()
-        else
+        if odd and i % 2 == 0 then
             turn_left()
+        else
+            turn_right()
         end
     end
 end
