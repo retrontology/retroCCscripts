@@ -44,7 +44,7 @@ function find_junk()
             table.insert(results, {index=1, details=details})
         end
     end
-    return nil
+    return results
 end
 
 function check_fuel(index)
