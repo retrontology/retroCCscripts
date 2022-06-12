@@ -32,9 +32,9 @@ function main()
         local full_url = base_url .. file_name
         local result = shell.run('wget', full_url)
         if result then
-            local target_file = TARGET_DIR .. file_name
+            local target_file = TARGET_DIR .. '/' .. file_name
             fs.delete(target_file)
-            fs.move(TEMP_DIR .. file_name, target_file)
+            fs.move(TEMP_DIR .. '/' .. file_name, target_file)
         else
             print('Could not download ' .. program)
         end
