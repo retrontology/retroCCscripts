@@ -1,5 +1,3 @@
-require "retroturtle"
-
 while true do
     local event = os.pullEvent("turtle_inventory")
     local junk = find_junk()
