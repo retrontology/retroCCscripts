@@ -36,17 +36,6 @@ function find_torch()
     return nil
 end
 
-function find_junk()
-    local results = {}
-    for i=1,16 do
-        local details = turtle.getItemDetail(i)
-        if details and (details.name == 'minecraft:cobblestone' or details.name == 'minecraft:cobbled_deepslate') then
-            table.insert(results, {index=i, details=details})
-        end
-    end
-    return results
-end
-
 function check_fuel(index)
     local fuel = turtle.getFuelLevel()
     if fuel == 0 then
