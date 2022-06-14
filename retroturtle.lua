@@ -39,6 +39,7 @@ end
 function check_fuel(index)
     local fuel = turtle.getFuelLevel()
     if fuel == 0 then
+        local select = turtle.getSelectedSlot()
         if index == nil then
             index = find_fuel()
             if index == nil then
@@ -49,6 +50,7 @@ function check_fuel(index)
         if not turtle.refuel() then
             error('COULD NOT REFUEL!!!')
         end
+        turtle.select(select)
     end
 end
 
@@ -135,18 +137,6 @@ function mine_down()
     while has_block do
         turtle.digDown()
         has_block, data = turtle.inspectDown()
-    end
-end
-
-function place_torch()
-    torch_index = find_torch()
-    if torch_index then
-        turn_left()
-        turn_left()
-        turtle.select(torch_index)
-        turtle.place()
-        turn_left()
-        turn_left()
     end
 end
 

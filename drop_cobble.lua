@@ -11,9 +11,11 @@ end
 
 while true do
     local event = os.pullEvent("turtle_inventory")
+    local select = turtle.getSelectedSlot()
     local junk = find_junk()
     for k,v in pairs(junk) do
         turtle.select(v.index)
         turtle.drop()
     end
+    turtle.select(select)
 end

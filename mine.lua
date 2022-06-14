@@ -50,4 +50,18 @@ function mine_shaft(length)
     return true
 end
 
+function place_torch()
+    local select = turtle.getSelectedSlot()
+    torch_index = find_torch()
+    if torch_index then
+        turn_left()
+        turn_left()
+        turtle.select(torch_index)
+        turtle.place()
+        turn_left()
+        turn_left()
+        turtle.select(select)
+    end
+end
+
 main()
