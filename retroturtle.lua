@@ -14,7 +14,7 @@ COORDINATES = {
 }
 
 mine_stack = {}
-current_direction = DIRECTIONS.SOUTH
+current_direction = DIRECTIONS.EAST
 
 function find_fuel()
     for i=1,16 do

@@ -34,9 +34,9 @@ function clear_land(length, width)
             min_z = width,
             max_z = 0
         }
-        face_direction(DIRECTIONS.WEST)
-        for j=edges.min_x,edges.max_x do
-            for k=edges.min_z,edges.max_z do
+        face_direction(DIRECTIONS.SOUTH)
+        for j=edges.min_z,edges.max_z do
+            for k=edges.min_x,edges.max_x do
 
                 -- store comparisons in memory
                 local x_bigger = COORDINATES.X > edges_next.max_x
@@ -70,16 +70,13 @@ function clear_land(length, width)
                 end
             end
             if j < edges.max_x then
-                print(current_direction)
-                face_direction(DIRECTIONS.SOUTH)
-                print(current_direction)
-                io.input()
+                face_direction(DIRECTIONS.EAST)
                 mine_forward()
                 move_forward()
                 if (j - edges.min_x) % 2 == 1 then
-                    face_direction(DIRECTIONS.WEST)
+                    face_direction(DIRECTIONS.SOUTH)
                 else
-                    face_direction(DIRECTIONS.EAST)
+                    face_direction(DIRECTIONS.NORTH)
                 end
             end
         end
@@ -87,7 +84,7 @@ function clear_land(length, width)
             go_directly_to(0, 0, 0)
             break
         else
-            go_directly_to(edges.min_x, edges.min_z, COORDINATES.Y+1)
+            go_directly_to(edges.min_x, COORDINATES.Y+1, edges.min_z)
             edges = edges_next
         end
     end
