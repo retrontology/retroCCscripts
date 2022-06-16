@@ -143,22 +143,22 @@ end
 function go_directly_to(x, y, z)
     while COORDINATES.X ~= x do
         if COORDINATES.X < x then
-            face_direction(DIRECTIONS.SOUTH)
+            face_direction(DIRECTIONS.EAST)
             mine_forward()
             move_forward()
         elseif COORDINATES.X > x then
-            face_direction(DIRECTIONS.NORTH)
+            face_direction(DIRECTIONS.WEST)
             mine_forward()
             move_forward()
         end
     end
     while COORDINATES.Z ~= z do
         if COORDINATES.Z < z then
-            face_direction(DIRECTIONS.EAST)
+            face_direction(DIRECTIONS.SOUTH)
             mine_forward()
             move_forward()
         elseif COORDINATES.Z > z then
-            face_direction(DIRECTIONS.WEST)
+            face_direction(DIRECTIONS.NORTH)
             mine_forward()
             move_forward()
         end
