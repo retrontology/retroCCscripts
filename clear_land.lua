@@ -69,11 +69,11 @@ function clear_land(length, width)
                     move_forward()
                 end
             end
-            if j < edges.max_x then
+            if j < edges.max_z then
                 face_direction(DIRECTIONS.NORTH)
                 mine_forward()
                 move_forward()
-                if (j - edges.min_x) % 2 == 1 then
+                if (j - edges.min_z) % 2 == 1 then
                     face_direction(DIRECTIONS.EAST)
                 else
                     face_direction(DIRECTIONS.WEST)
