@@ -15,24 +15,24 @@ end
 function clear_land(length, width)
     local edges = {
         min_x = 0,
-        max_x = length-1,
-        min_z = 1-width,
+        max_x = width-1,
+        min_z = 1-length,
         max_z = 0
     }
 
     local edges_next = {
-        min_x = length,
+        min_x = width-1,
         max_x = 0,
         min_z = 0,
-        max_z = 1-width
+        max_z = 1-length
     }
 
     while true do 
         edges_next = {
-            min_x = length,
+            min_x = width-1,
             max_x = 0,
             min_z = 0,
-            max_z = 1-width
+            max_z = 1-length
         }
         face_direction(DIRECTIONS.EAST)
         for j=edges.min_z,edges.max_z do
