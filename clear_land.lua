@@ -64,7 +64,7 @@ function clear_land(length, width)
                 end
                 
                 -- actual clearing
-                if k < edges.max_z then
+                if k < edges.max_x then
                     mine_forward()
                     move_forward()
                 end
