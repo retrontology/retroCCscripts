@@ -84,8 +84,8 @@ function clear_land(length, width)
             go_directly_to(0, 0, 0)
             break
         else
-            go_directly_to(edges.min_x, COORDINATES.Y+1, edges.min_z)
             edges = edges_next
+            go_directly_to(edges.min_x, COORDINATES.Y+1, edges.max_z)
         end
     end
 end
