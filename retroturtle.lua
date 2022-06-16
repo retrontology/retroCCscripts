@@ -141,7 +141,7 @@ function mine_down()
 end
 
 function go_directly_to(x, y, z)
-    while COORDINATES.X != x do
+    while COORDINATES.X ~= x do
         if COORDINATES.X < x then
             face_direction(DIRECTIONS.SOUTH)
             mine_forward()
@@ -152,7 +152,7 @@ function go_directly_to(x, y, z)
             move_forward()
         end
     end
-    while COORDINATES.Z != z do
+    while COORDINATES.Z ~= z do
         if COORDINATES.Z < z then
             face_direction(DIRECTIONS.EAST)
             mine_forward()
@@ -163,7 +163,7 @@ function go_directly_to(x, y, z)
             move_forward()
         end
     end
-    while COORDINATES.Y != y do
+    while COORDINATES.Y ~= y do
         if COORDINATES.Y < y then
             mine_up()
             move_up()
