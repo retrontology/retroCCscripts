@@ -41,8 +41,8 @@ function clear(length, width)
                 -- store comparisons in memory
                 local x_bigger = COORDINATES.X > edges_next.max_x
                 local x_smaller = COORDINATES.X < edges_next.min_x
-                local z_bigger = COORDINATES.X > edges_next.max_y
-                local z_smaller = COORDINATES.X < edges_next.min_y
+                local z_bigger = COORDINATES.Z > edges_next.max_z
+                local z_smaller = COORDINATES.Z < edges_next.min_z
 
                 -- measure next layer edges
                 if x_bigger or x_smaller or z_bigger or z_smaller then
@@ -55,10 +55,10 @@ function clear(length, width)
                             edges_next.min_x = COORDINATES.X
                         end
                         if y_bigger then
-                            edges_next.max_y = COORDINATES.Y
+                            edges_next.max_z = COORDINATES.Z
                         end
                         if y_smaller then
-                            edges_next.min_y = COORDINATES.Y
+                            edges_next.min_z = COORDINATES.Z
                         end
                     end
                 end
@@ -84,7 +84,7 @@ function clear(length, width)
             go_directly_to(0, 0, 0)
             break
         else
-            go_directly_to(edges.min_x, edges.min_y, COORDINATES.Y+1)
+            go_directly_to(edges.min_x, edges.min_z, COORDINATES.Y+1)
             edges = edges_next
         end
     end
