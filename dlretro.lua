@@ -9,6 +9,7 @@ PROGRAMS = {
     'main_tunnel',
     'drop_cobble',
     'play_gif',
+    'clear_land',
     'dlretro'
 }
 
