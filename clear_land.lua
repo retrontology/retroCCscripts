@@ -16,25 +16,25 @@ function clear_land(length, width)
     local edges = {
         min_x = 0,
         max_x = length-1,
-        min_z = 0,
-        max_z = width-1
+        min_z = 1-width,
+        max_z = 0
     }
 
     local edges_next = {
         min_x = length,
         max_x = 0,
-        min_z = width,
-        max_z = 0
+        min_z = 0,
+        max_z = 1-width
     }
 
     while true do 
         edges_next = {
             min_x = length,
             max_x = 0,
-            min_z = width,
-            max_z = 0
+            min_z = 0,
+            max_z = 1-width
         }
-        face_direction(DIRECTIONS.SOUTH)
+        face_direction(DIRECTIONS.EAST)
         for j=edges.min_z,edges.max_z do
             for k=edges.min_x,edges.max_x do
 
@@ -70,13 +70,13 @@ function clear_land(length, width)
                 end
             end
             if j < edges.max_x then
-                face_direction(DIRECTIONS.EAST)
+                face_direction(DIRECTIONS.NORTH)
                 mine_forward()
                 move_forward()
                 if (j - edges.min_x) % 2 == 1 then
-                    face_direction(DIRECTIONS.SOUTH)
+                    face_direction(DIRECTIONS.EAST)
                 else
-                    face_direction(DIRECTIONS.NORTH)
+                    face_direction(DIRECTIONS.WEST)
                 end
             end
         end
