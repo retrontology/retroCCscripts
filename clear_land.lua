@@ -70,7 +70,10 @@ function clear(length, width)
                 end
             end
             if j < edges.max_x then
+                print(current_direction)
                 face_direction(DIRECTIONS.SOUTH)
+                print(current_direction)
+                io.input()
                 mine_forward()
                 move_forward()
                 if (j - edges.min_x) % 2 == 1 then
