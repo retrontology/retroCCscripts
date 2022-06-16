@@ -9,10 +9,10 @@ function main()
     local length = tonumber(arg[1])
     local width = tonumber(arg[2])
     local height = tonumber(arg[3])
-    clear(length, width)
+    clear_land(length, width)
 end
 
-function clear(length, width)
+function clear_land(length, width)
     local edges = {
         min_x = 0,
         max_x = length-1,
