@@ -54,10 +54,10 @@ function clear_land(length, width)
                         if x_smaller then
                             edges_next.min_x = COORDINATES.X
                         end
-                        if y_bigger then
+                        if z_bigger then
                             edges_next.max_z = COORDINATES.Z
                         end
-                        if y_smaller then
+                        if z_smaller then
                             edges_next.min_z = COORDINATES.Z
                         end
                     end
