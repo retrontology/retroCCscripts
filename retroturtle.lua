@@ -14,7 +14,7 @@ COORDINATES = {
 }
 
 mine_stack = {}
-current_direction = DIRECTIONS.NORTH
+current_direction = DIRECTIONS.SOUTH
 
 function find_fuel()
     for i=1,16 do
@@ -138,6 +138,41 @@ function mine_down()
         turtle.digDown()
         has_block, data = turtle.inspectDown()
     end
+end
+
+function go_directly_to(x, y, z)
+    while COORDINATES.X != x do
+        if COORDINATES.X < x then
+            face_direction(DIRECTIONS.SOUTH)
+            mine_forward()
+            move_forward()
+        elseif COORDINATES.X > x then
+            face_direction(DIRECTIONS.NORTH)
+            mine_forward()
+            move_forward()
+        end
+    end
+    while COORDINATES.Z != z do
+        if COORDINATES.Z < z then
+            face_direction(DIRECTIONS.EAST)
+            mine_forward()
+            move_forward()
+        elseif COORDINATES.Z > z then
+            face_direction(DIRECTIONS.WEST)
+            mine_forward()
+            move_forward()
+        end
+    end
+    while COORDINATES.Y != y do
+        if COORDINATES.Y < y then
+            mine_up()
+            move_up()
+        elseif COORDINATES.Y > y then
+            mine_down()
+            move_down()
+        end
+    end
+
 end
 
 function vein_mine()
