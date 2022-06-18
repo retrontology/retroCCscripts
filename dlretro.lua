@@ -3,6 +3,7 @@ DEFAULT_BRANCH = 'main'
 TARGET_DIR = '/'
 TEMP_DIR = '/retrotemp'
 PROGRAMS = {
+    'retrostd',
     'retroturtle',
     'mine',
     'audio',
