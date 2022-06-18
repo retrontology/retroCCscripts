@@ -80,7 +80,7 @@ function clear_land(length, width)
                 end
             end
         end
-        if edges_next.min_x == length or edges_next.max_x == 0 or edges_next.min_z == width or edges_next.max_z == 0 then
+        if edges_next.min_x == width-1 or edges_next.max_x == 0 or edges_next.min_z == 0 or edges_next.max_z == 1-length then
             go_directly_to(0, 0, 0)
             break
         else
