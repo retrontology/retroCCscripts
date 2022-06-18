@@ -1,4 +1,4 @@
-require "retrostd"
+local rstd = require "retrostd"
 
 DIRECTIONS = {
     NORTH = 0,
@@ -32,7 +32,7 @@ current_direction = DIRECTIONS.NORTH
 function find_fuel()
     for i=1,16 do
         local details = turtle.getItemDetail(i)
-        if details and contains(FUEL, details.name) then
+        if details and rstd.contains(FUEL, details.name) then
             return i
         end
     end
@@ -131,7 +131,7 @@ end
 
 function mine_forward()
     local has_block, data = turtle.inspect()
-    while has_block and not contains(PASSABLE, data.name) do
+    while has_block and not rstd.contains(PASSABLE, data.name) do
         turtle.dig()
         has_block, data = turtle.inspect()
     end
@@ -139,7 +139,7 @@ end
 
 function mine_up()
     local has_block, data = turtle.inspectUp()
-    while has_block and not contains(PASSABLE, data.name) do
+    while has_block and not rstd.contains(PASSABLE, data.name) do
         turtle.digUp()
         has_block, data = turtle.inspectUp()
     end
@@ -147,7 +147,7 @@ end
 
 function mine_down()
     local has_block, data = turtle.inspectDown()
-    while has_block and not contains(PASSABLE, data.name) do
+    while has_block and not rstd.contains(PASSABLE, data.name) do
         turtle.digDown()
         has_block, data = turtle.inspectDown()
     end
@@ -195,10 +195,7 @@ function vein_mine()
     -- UP
     local has_block, data = turtle.inspectUp()
     if data.tags and data.tags['forge:ores'] then
-        while has_block and not contains(PASSABLE, data.name) do
-            turtle.digUp()
-            has_block, data = turtle.inspectUp()
-        end
+        mine_up()
         local success, err = move_up()
         if success then
             table.insert(mine_stack, DIRECTIONS.UP)
@@ -211,10 +208,7 @@ function vein_mine()
     -- Forward
     local has_block, data = turtle.inspect()
     if data.tags and data.tags['forge:ores'] then
-        while has_block and not contains(PASSABLE, data.name) do
-            turtle.dig()
-            has_block, data = turtle.inspect()
-        end
+        mine_forward()
         local success, err = move_forward()
         if success then
             table.insert(mine_stack, current_direction)
@@ -228,10 +222,7 @@ function vein_mine()
     turn_left()
     local has_block, data = turtle.inspect()
     if data.tags and data.tags['forge:ores'] then
-        while has_block and data.name ~= not contains(PASSABLE, data.name) do
-            turtle.dig()
-            has_block, data = turtle.inspect()
-        end
+        mine_forward()
         local success, err = move_forward()
         if success then
             table.insert(mine_stack, current_direction)
@@ -245,10 +236,7 @@ function vein_mine()
     turn_left()
     local has_block, data = turtle.inspect()
     if data.tags and data.tags['forge:ores'] then
-        while has_block and data.name ~= not contains(PASSABLE, data.name) do
-            turtle.dig()
-            has_block, data = turtle.inspect()
-        end
+        mine_forward()
         local success, err = move_forward()
         if success then
             table.insert(mine_stack, current_direction)
@@ -262,10 +250,7 @@ function vein_mine()
     turn_left()
     local has_block, data = turtle.inspect()
     if data.tags and data.tags['forge:ores'] then
-        while has_block and data.name ~= not contains(PASSABLE, data.name) do
-            turtle.dig()
-            has_block, data = turtle.inspect()
-        end
+        mine_forward()
         local success, err = move_forward()
         if success then
             table.insert(mine_stack, current_direction)
@@ -278,10 +263,7 @@ function vein_mine()
     -- Below
     local has_block, data = turtle.inspectDown()
     if data.tags and data.tags['forge:ores'] then
-        while has_block and data.name ~= not contains(PASSABLE, data.name) do
-            turtle.digDown()
-            has_block, data = turtle.inspectDown()
-        end
+        mine_down()
         local success, err = move_down()
         if success then
             table.insert(mine_stack, DIRECTIONS.DOWN)
@@ -318,7 +300,7 @@ end
 
 function go_to_wall()
     local has_block, data = turtle.inspect()
-    while not has_block and data.name ~= not contains(PASSABLE, data.name) do
+    while not has_block and not rstd.contains(PASSABLE, data.name) do
         move_forward()
         has_block, data = turtle.inspect()
     end
