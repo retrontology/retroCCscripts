@@ -1,8 +1,17 @@
+require "retrostd"
+
+JUNK = {
+    'minecraft:cobblestone',
+    'minecraft:cobbled_deepslate',
+    'minecraft:dirt',
+    'minecraft:gravel'
+}
+
 function find_junk()
     local results = {}
     for i=1,16 do
         local details = turtle.getItemDetail(i)
-        if details and (details.name == 'minecraft:cobblestone' or details.name == 'minecraft:cobbled_deepslate') then
+        if details and contains(JUNK, details.name) then
             table.insert(results, {index=i, details=details})
         end
     end
