@@ -1,4 +1,4 @@
-require "retrostd"
+local rstd = require "retrostd"
 
 JUNK = {
     'minecraft:cobblestone',
