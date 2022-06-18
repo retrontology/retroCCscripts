@@ -1,11 +1,18 @@
-local rstd = require "retrostd"
-
 JUNK = {
     'minecraft:cobblestone',
     'minecraft:cobbled_deepslate',
     'minecraft:dirt',
     'minecraft:gravel'
 }
+
+function contains(table, value)
+    for k,v in ipairs(table) do
+        if v == value then
+            return true
+        end
+    end
+    return false
+end
 
 function find_junk()
     local results = {}
