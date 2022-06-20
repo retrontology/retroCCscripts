@@ -9,10 +9,10 @@ function main()
 end
 
 function build_walls(item, length, width, height)
-    move_up()
-    for i=1,height do
+    for i=1,height-1 do
+        move_up()
         for j=1,2 do
-            for k=1,length do
+            for k=1,length-1 do
                 local result = place_item_down(item)
                 if not result then
                     error('Ran out of specified item')
