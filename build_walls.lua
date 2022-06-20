@@ -15,7 +15,7 @@ function build_walls(item, length, width, height)
             for k=1,length-1 do
                 local result = place_item_down(item)
                 if not result then
-                    error('Ran out of specified item')
+                    error('Could not place item')
                 else
                     move_forward()
                 end
@@ -24,7 +24,7 @@ function build_walls(item, length, width, height)
             for k=1,width do
                 local result = place_item_down(item)
                 if not result then
-                    error('Ran out of specified item')
+                    error('Could not place item')
                 else
                     move_forward()
                 end
