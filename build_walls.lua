@@ -21,7 +21,7 @@ function build_walls(item, length, width, height)
                 end
             end
             turn_right()
-            for k=1,width do
+            for k=1,width-1 do
                 local result = place_item_down(item)
                 if not result then
                     error('Could not place item')
