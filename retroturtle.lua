@@ -18,7 +18,8 @@ COORDINATES = {
 PASSABLE = {
     'minecraft:water',
     'minecraft:bubble_column',
-    'minecraft:lava'
+    'minecraft:lava',
+    'pneumaticcraft:oil'
 }
 
 FUEL = {
