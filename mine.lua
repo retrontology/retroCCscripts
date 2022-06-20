@@ -52,7 +52,7 @@ end
 
 function place_torch()
     local select = turtle.getSelectedSlot()
-    torch_index = find_torch()
+    torch_index = find_item('minecraft:torch')
     if torch_index then
         turn_left()
         turn_left()

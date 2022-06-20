@@ -11,6 +11,8 @@ PROGRAMS = {
     'drop_cobble',
     'play_gif',
     'clear_land',
+    'build_wall',
+    'build_floor',
     'dlretro'
 }
 

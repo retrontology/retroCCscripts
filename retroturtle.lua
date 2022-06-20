@@ -29,20 +29,20 @@ FUEL = {
 mine_stack = {}
 current_direction = DIRECTIONS.NORTH
 
-function find_fuel()
+function find_item(item)
     for i=1,16 do
         local details = turtle.getItemDetail(i)
-        if details and contains(FUEL, details.name) then
+        if details and details.name == item then
             return i
         end
     end
     return nil
 end
 
-function find_torch()
+function find_fuel()
     for i=1,16 do
         local details = turtle.getItemDetail(i)
-        if details and details.name == 'minecraft:torch' then
+        if details and contains(FUEL, details.name) then
             return i
         end
     end
@@ -150,6 +150,39 @@ function mine_down()
     while has_block and not contains(PASSABLE, data.name) do
         turtle.digDown()
         has_block, data = turtle.inspectDown()
+    end
+end
+
+function place_item(item)
+    local item = find_item(item)
+    if item == nil then
+        print('Could not find item: ' .. item .. '!!!')
+        return false
+    else
+        turtle.select(item)
+        return turtle.place()
+    end
+end
+
+function place_item_down(item)
+    local item = find_item(item)
+    if item == nil then
+        print('Could not find item: ' .. item .. '!!!')
+        return false
+    else
+        turtle.select(item)
+        return turtle.placeDown()
+    end
+end
+
+function place_item_up(item)
+    local item = find_item(item)
+    if item == nil then
+        print('Could not find item: ' .. item .. '!!!')
+        return false
+    else
+        turtle.select(item)
+        return turtle.placeUp()
     end
 end
 
