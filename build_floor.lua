@@ -17,11 +17,11 @@ function build_floor(item, length, width)
         for j=1,width-1 do
             mine_down()
             local result = place_item_down(item)
-            if result then
-                move_forward()
-            else
+            if not result then
                 error('Could not place item')
             end
+            mine_forward()
+            move_forward()
         end
         mine_down()
         local result = place_item_down(item)
@@ -33,6 +33,7 @@ function build_floor(item, length, width)
         else
             turn_right()
         end
+        mine_forward()
         move_forward()
     end
     go_directly_to(0, 0, 0)
