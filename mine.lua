@@ -17,10 +17,8 @@ function main()
     local length = tonumber(arg[2])
     local filter = nil
     if mine_type == 'ore' then
-        SUBROUTINES['drop_cobble'] = {}
         filter = filter_ore
     elseif mine_type == 'debris' then
-        SUBROUTINES['drop_cobble'] = {'nether'}
         filter = filter_debris
     end
     run_subroutines(SUBROUTINES)

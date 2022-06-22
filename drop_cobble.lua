@@ -3,19 +3,13 @@ JUNK = {
     'minecraft:cobbled_deepslate',
     'minecraft:dirt',
     'minecraft:gravel',
-}
-
-NETHER_JUNK = {
     'minecraft:netherrack',
     'minecraft:soul_sand'
 }
 
 function main()
     local junk_type = arg[1]
-    local filter = {}
-    if junk_type == 'nether' then
-        
-    
+    local filter = JUNK
     while true do
         local event = os.pullEvent("turtle_inventory")
         local index = turtle.getSelectedSlot()
