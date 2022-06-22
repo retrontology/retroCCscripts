@@ -24,7 +24,7 @@ function main()
         filter = filter_debris
     end
     run_subroutines(SUBROUTINES)
-    mine_shaft(length, filter)
+    mine_shaft(filter, length)
 end
 
 function tunnel(filter, segments, torch)
