@@ -1,7 +1,7 @@
 require "retroturtle"
 
 SUBROUTINES = {
-    drop_cobble: {}
+    drop_cobble = {}
 }
 
 function filter_ore(data)
