@@ -222,18 +222,18 @@ function go_directly_to(x, y, z)
 
 end
 
-function vein_mine()
+function vein_mine(filter)
 
     local saved_direction = current_direction
 
     -- UP
     local has_block, data = turtle.inspectUp()
-    if data.tags and data.tags['forge:ores'] then
+    if filter(data) then
         mine_up()
         local success, err = move_up()
         if success then
             table.insert(mine_stack, DIRECTIONS.UP)
-            vein_mine()
+            vein_mine(filter)
         else
             error(err .. " up")
         end
@@ -241,12 +241,12 @@ function vein_mine()
 
     -- Forward
     local has_block, data = turtle.inspect()
-    if data.tags and data.tags['forge:ores'] then
+    if filter(data) then
         mine_forward()
         local success, err = move_forward()
         if success then
             table.insert(mine_stack, current_direction)
-            vein_mine()
+            vein_mine(filter)
         else
             error(err .. " forward")
         end
@@ -255,12 +255,12 @@ function vein_mine()
     -- Left
     turn_left()
     local has_block, data = turtle.inspect()
-    if data.tags and data.tags['forge:ores'] then
+    if filter(data) then
         mine_forward()
         local success, err = move_forward()
         if success then
             table.insert(mine_stack, current_direction)
-            vein_mine()
+            vein_mine(filter)
         else
             error(err .. " forward")
         end
@@ -269,12 +269,12 @@ function vein_mine()
     -- Behind
     turn_left()
     local has_block, data = turtle.inspect()
-    if data.tags and data.tags['forge:ores'] then
+    if filter(data) then
         mine_forward()
         local success, err = move_forward()
         if success then
             table.insert(mine_stack, current_direction)
-            vein_mine()
+            vein_mine(filter)
         else
             error(err .. " forward")
         end
@@ -283,12 +283,12 @@ function vein_mine()
     -- Right
     turn_left()
     local has_block, data = turtle.inspect()
-    if data.tags and data.tags['forge:ores'] then
+    if filter(data) then
         mine_forward()
         local success, err = move_forward()
         if success then
             table.insert(mine_stack, current_direction)
-            vein_mine()
+            vein_mine(filter)
         else
             error(err .. " up")
         end
@@ -296,12 +296,12 @@ function vein_mine()
 
     -- Below
     local has_block, data = turtle.inspectDown()
-    if data.tags and data.tags['forge:ores'] then
+    if filter(data) then
         mine_down()
         local success, err = move_down()
         if success then
             table.insert(mine_stack, DIRECTIONS.DOWN)
-            vein_mine()
+            vein_mine(filter)
         else
             error(err .. " down")
         end
@@ -339,22 +339,4 @@ function go_to_wall()
         has_block, data = turtle.inspect()
     end
     return true
-end
-
-function run_subroutines(subroutines)
-    for k,v in pairs(subroutines) do
-        local count = multishell.getCount()
-        local running = false
-        for i=1,count do
-            local title = multishell.getTitle(i)
-            if title == v then
-                running = true
-                break
-            end
-        end
-        if not running then
-            local temp = multishell.launch(_G, v .. '.lua')
-            multishell.setTitle(temp, v)
-        end
-    end
 end

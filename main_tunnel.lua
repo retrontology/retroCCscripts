@@ -1,7 +1,7 @@
 require "retroturtle"
 
 SUBROUTINES = {
-    'drop_cobble'
+    drop_cobble: {}
 }
 
 DEFAULT_WIDTH = 4

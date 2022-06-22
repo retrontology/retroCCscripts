@@ -1,27 +1,40 @@
 require "retroturtle"
 
 SUBROUTINES = {
-    'drop_cobble'
+    drop_cobble: {}
 }
 
-function main()
-    run_subroutines(SUBROUTINES)
-    local length = tonumber(arg[1])
-    mine_shaft(length)
+function filter_ore(data)
+    return data.tags and data.tags['forge:ores']
 end
 
-function tunnel(segments, torch)
+function filter_debris(data)
+    return data.tags and data.name == 'minecraft:ancient_debris'
+end
+
+function main()
+    local mine_type = arg[1]
+    local length = tonumber(arg[2])
+    local filter = nil
+    if mine_type == 'ore' then
+        SUBROUTINES['drop_cobble'] = {}
+        filter = filter_ore
+    elseif mine_type == 'debris' then
+        SUBROUTINES['drop_cobble'] = {'nether'}
+        filter = filter_debris
+    end
+    run_subroutines(SUBROUTINES)
+    mine_shaft(length, filter)
+end
+
+function tunnel(filter, segments, torch)
     local segment_count = 0
     while segment_count < segments do
         local count = 0
         while count < 8 do
-            local has_block, data = turtle.inspect()
-            while has_block and data.name ~= 'minecraft:water' and data.name ~= 'minecraft:bubble_column' do
-                turtle.dig()
-                has_block, data = turtle.inspect()
-            end
+            mine_forward()
             move_forward()
-            vein_mine()
+            vein_mine(filter)
             if torch and count == 4 then
                 place_torch()
             end
@@ -33,20 +46,16 @@ function tunnel(segments, torch)
 end
 
 function turn_around()
-    local has_block, data = turtle.inspectUp()
-    while has_block and data.name ~= 'minecraft:water' and data.name ~= 'minecraft:bubble_column' do
-        turtle.digUp()
-        has_block, data = turtle.inspectUp()
-    end
+    mine_up()
     move_up()
     turn_left()
     turn_left()
 end
 
-function mine_shaft(length)
-    tunnel(length, false)
+function mine_shaft(filter, length)
+    tunnel(filter, length, false)
     turn_around()
-    tunnel(length, true)
+    tunnel(filter, length, true)
     return true
 end
 
