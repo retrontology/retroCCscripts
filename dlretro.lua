@@ -13,6 +13,7 @@ PROGRAMS = {
     'clear_land',
     'build_walls',
     'build_floor',
+    'mine_stairs',
     'dlretro'
 }
 
