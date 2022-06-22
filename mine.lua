@@ -22,6 +22,7 @@ function main()
         filter = filter_debris
     else
         error('you must specify either "ore" or "debris"')
+    end
     run_subroutines(SUBROUTINES)
     mine_shaft(filter, length)
 end
