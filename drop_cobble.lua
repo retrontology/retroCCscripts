@@ -8,7 +8,6 @@ JUNK = {
 }
 
 function main()
-    local junk_type = arg[1]
     local filter = JUNK
     while true do
         local event = os.pullEvent("turtle_inventory")
