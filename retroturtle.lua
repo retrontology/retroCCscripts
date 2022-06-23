@@ -1,5 +1,7 @@
 require "retrostd"
 
+DEFAULT_GPS_TIMEOUT = 5
+
 DIRECTIONS = {
     NORTH = 0,
     EAST = 1,
@@ -29,6 +31,13 @@ FUEL = {
 
 mine_stack = {}
 current_direction = DIRECTIONS.NORTH
+
+function gps_sync(timeout)
+    if timeout == nil then
+        timeout = DEFAULT_GPS_TIMEOUT
+    end
+    COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
+end
 
 function find_item(item)
     for i=1,16 do
