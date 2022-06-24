@@ -39,6 +39,19 @@ function gps_sync(timeout)
     COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
 end
 
+function find_empty_slots()
+    local saved_index = turtle.getSelectedSlot()
+    local empties = {}
+    for i=1,16 do
+        turtle.select(i)
+        if turtle.getItemDetail() == nil then
+            empties[i] = true
+        end
+    end
+    turtle.select(saved_index)
+    return empties
+end
+
 function find_item(item)
     for i=1,16 do
         local details = turtle.getItemDetail(i)
