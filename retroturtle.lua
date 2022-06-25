@@ -32,15 +32,29 @@ FUEL = {
 mine_stack = {}
 current_direction = DIRECTIONS.NORTH
 
-function gps_sync(timeout)
+function sync_gps(timeout)
     if timeout == nil then
         timeout = DEFAULT_GPS_TIMEOUT
     end
     COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
+end
+
+function sync_direction(timeout)
+    sync_gps(timeout)
     saved_coords = deepcopy(COORDINATES)
-    mine_forward()
-    move_forward()
-    COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
+    local result = false
+    for i=1,4 do
+        if move_forward() then
+            result = true
+            break
+        else
+            turn_left()
+        end
+    end
+    if not result then
+        error('Could not sync direction!!!')
+    end
+    sync_gps(timeout)
     local x_diff = COORDINATES.X - saved_coords.X
     local z_diff = COORDINATES.Z - saved_coords.Z
     if x_diff == 1 then
@@ -118,42 +132,54 @@ end
 
 function move_forward()
     check_fuel()
-    if current_direction == DIRECTIONS.NORTH then
-        COORDINATES.Z = COORDINATES.Z - 1
-    elseif current_direction == DIRECTIONS.EAST then
-        COORDINATES.X = COORDINATES.X + 1
-    elseif current_direction == DIRECTIONS.SOUTH then
-        COORDINATES.Z = COORDINATES.Z + 1
-    elseif current_direction == DIRECTIONS.WEST then
-        COORDINATES.X = COORDINATES.X - 1
+    local result, err = turtle.forward()
+    if result then 
+        if current_direction == DIRECTIONS.NORTH then
+            COORDINATES.Z = COORDINATES.Z - 1
+        elseif current_direction == DIRECTIONS.EAST then
+            COORDINATES.X = COORDINATES.X + 1
+        elseif current_direction == DIRECTIONS.SOUTH then
+            COORDINATES.Z = COORDINATES.Z + 1
+        elseif current_direction == DIRECTIONS.WEST then
+            COORDINATES.X = COORDINATES.X - 1
+        end
     end
-    return turtle.forward()
+    return result, err
 end
 
 function move_backward()
     check_fuel()
-    if current_direction == DIRECTIONS.NORTH then
-        COORDINATES.Z = COORDINATES.Z + 1
-    elseif current_direction == DIRECTIONS.EAST then
-        COORDINATES.X = COORDINATES.X - 1
-    elseif current_direction == DIRECTIONS.SOUTH then
-        COORDINATES.Z = COORDINATES.Z - 1
-    elseif current_direction == DIRECTIONS.WEST then
-        COORDINATES.X = COORDINATES.X + 1
+    local result, err = turtle.back()
+    if result then 
+        if current_direction == DIRECTIONS.NORTH then
+            COORDINATES.Z = COORDINATES.Z + 1
+        elseif current_direction == DIRECTIONS.EAST then
+            COORDINATES.X = COORDINATES.X - 1
+        elseif current_direction == DIRECTIONS.SOUTH then
+            COORDINATES.Z = COORDINATES.Z - 1
+        elseif current_direction == DIRECTIONS.WEST then
+            COORDINATES.X = COORDINATES.X + 1
+        end
     end
-    return turtle.back()
+    return result, err
 end
 
 function move_up()
     check_fuel()
-    COORDINATES.Y = COORDINATES.Y + 1
-    return turtle.up()
+    local result, err = turtle.up()
+    if result then 
+        COORDINATES.Y = COORDINATES.Y + 1
+    end
+    return result, err
 end
 
 function move_down()
     check_fuel()
-    COORDINATES.Y = COORDINATES.Y - 1
-    return turtle.down()
+    local result, err = turtle.down()
+    if result then 
+        COORDINATES.Y = COORDINATES.Y + 1
+    end
+    return result, err
 end
 
 function face_direction(target_direction)
