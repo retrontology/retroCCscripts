@@ -38,7 +38,24 @@ function fill_sand()
     local index = find_item('minecraft:sand')
     if index == nil then
         refill_sand()
+        index = find_item('minecraft:sand')
     end
+    turtle.select(index)
+    local has_block, data = turtle.inspectDown()
+    while not has_block or data.name == 'minecraft:water' do
+        if turtle.getItemCount() > 0 then 
+            turtle.placeDown()
+        else
+            index = find_item('minecraft:sand')
+            if index == nil then
+                refill_sand()
+                index find_item('minecraft:sand')
+            end
+            turtle.select(index)
+        end
+        has_block, data = turtle.inspectDown()
+    end
+    
 end
 
 function refill_sand()
