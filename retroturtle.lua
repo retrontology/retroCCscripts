@@ -41,7 +41,7 @@ function gps_sync(timeout)
     mine_forward()
     move_forward()
     COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
-    local x_diff = saved_coords.X - COORDINATES.Z
+    local x_diff = saved_coords.X - COORDINATES.X
     local z_diff = saved_coords.Z - COORDINATES.Z
     if x_diff == 1 then
         current_direction = DIRECTIONS.EAST
