@@ -37,6 +37,22 @@ function gps_sync(timeout)
         timeout = DEFAULT_GPS_TIMEOUT
     end
     COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
+    saved_coords = deepcopy(COORDINATES)
+    mine_forward()
+    move_forward()
+    COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
+    local x_diff = saved_coords.X - COORDINATES.Z
+    local z_diff = saved_coords.Z - COORDINATES.Z
+    if x_diff = 1 then
+        current_direction = DIRECTIONS.EAST
+    elseif x_diff = -1 then
+        current_direction = DIRECTIONS.WEST
+    elseif z_diff = 1 then
+        current_direction = DIRECTIONS.SOUTH
+    elseif z_diff = -1 then
+        current_direction = DIRECTIONS.NORTH
+    end
+    move_backward()
 end
 
 function find_empty_slots()
