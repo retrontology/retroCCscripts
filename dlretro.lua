@@ -14,6 +14,7 @@ PROGRAMS = {
     'build_walls',
     'build_floor',
     'mine_stairs',
+    'ocean_monument',
     'dlretro'
 }
 
