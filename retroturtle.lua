@@ -43,13 +43,13 @@ function gps_sync(timeout)
     COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
     local x_diff = saved_coords.X - COORDINATES.Z
     local z_diff = saved_coords.Z - COORDINATES.Z
-    if x_diff = 1 then
+    if x_diff == 1 then
         current_direction = DIRECTIONS.EAST
-    elseif x_diff = -1 then
+    elseif x_diff == -1 then
         current_direction = DIRECTIONS.WEST
-    elseif z_diff = 1 then
+    elseif z_diff == 1 then
         current_direction = DIRECTIONS.SOUTH
-    elseif z_diff = -1 then
+    elseif z_diff == -1 then
         current_direction = DIRECTIONS.NORTH
     end
     move_backward()
