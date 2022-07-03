@@ -12,6 +12,7 @@ function main()
     for i=1,refills do
         place_func()
         turtle.refuel()
+        print('Current fuel: ' .. turtle.getFuelLevel())
     end
 end
 
