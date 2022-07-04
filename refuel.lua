@@ -1,4 +1,6 @@
 FUEL = "minecraft:lava"
+BUCKET = "minecraft:bucket"
+BUCKET_LAVA = "minecraft:lava_bucket"
 
 function main()
     local refills = tonumber(arg[1])
@@ -15,14 +17,20 @@ function main()
         place_func = turtle.placeDown
         inspect_func = turtle.inspectDown
     end
+    turtle.select(1)
+    local details = turtle.getItemDetail()
+    if details == nil or not (details.name == BUCKET or details.name == BUCKET_LAVA) then
+        error('You must put an empty bucket in the first slot to run this program!')
+    end
     for i=1,refills do
-        local has_block, data = inspect_func()
-        while not has_block or data.name ~= FUEL or d.state.level ~= 0 do
+        while details.name == BUCKET and details.name ~= BUCKET_LAVA do
             sleep(0.05)
-            has_block, data = inspect_func()
+            place_func()
+            details = turtle.getItemDetail()
         end
-        place_func()
-        turtle.refuel()
+        if not turtle.refuel() then
+            error('Could not refuel!')
+        end
         print('Current fuel: ' .. turtle.getFuelLevel())
     end
 end
