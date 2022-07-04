@@ -8,7 +8,7 @@ function main()
 end
 
 function build_floor(item, length, width)
-    for i=1,length-1 do
+    for i=1,length do
         if i % 2 == 1 then
             turn_right()
         else
@@ -28,13 +28,15 @@ function build_floor(item, length, width)
         if not result then
             error('Could not place item')
         end
-        if i % 2 == 1 then
-            turn_left()
-        else
-            turn_right()
+        if i < length then
+            if i % 2 == 1 then
+                turn_left()
+            else
+                turn_right()
+            end
+            mine_forward()
+            move_forward()
         end
-        mine_forward()
-        move_forward()
     end
     go_directly_to(0, 0, 0)
 end
