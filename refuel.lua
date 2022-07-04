@@ -17,7 +17,7 @@ function main()
     end
     for i=1,refills do
         local has_block, data = inspect_func()
-        while not has_block or data.name ~= FUEL do
+        while not has_block or data.name ~= FUEL or d.state.level ~= 0 do
             sleep(0.05)
             has_block, data = inspect_func()
         end
