@@ -31,6 +31,7 @@ function main()
         if not turtle.refuel() then
             error('Could not refuel!')
         end
+        details = turtle.getItemDetail()
         print('Current fuel: ' .. turtle.getFuelLevel())
     end
 end
