@@ -50,8 +50,8 @@ end
 
 function download(url, path)
     local result = http.get(full_url)
-    if path == nil then full_url
-        path = 
+    if path == nil then 
+        path = basename(full_url)
     end
     if not result then
         error('Could not download ' .. full_url)
@@ -61,4 +61,12 @@ function download(url, path)
         outfile.close()
     end
     result.close()
+end
+
+function dirname(path)
+    return string.match(fullpath, ".*/")
+end
+
+function basename(path)
+    return string.match(fullpath, ".*/(.*)")
 end
