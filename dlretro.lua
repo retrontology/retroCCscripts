@@ -14,7 +14,7 @@ function main()
     fs.makeDir(TEMP_DIR)
     shell.setDir(TEMP_DIR)
 
-    require "index"
+    require INDEX
 
     for k,program in pairs(PROGRAMS) do
         download_program(program)
@@ -45,7 +45,7 @@ function get_program_url(program, branch)
     else
         base_url = base_url .. branch
     end
-    local result_url = base_url .. '/' .. 'program' .. '.lua'
+    local result_url = base_url .. '/' .. program .. '.lua'
     return result_url 
 end
 
