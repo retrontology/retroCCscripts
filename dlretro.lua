@@ -8,13 +8,14 @@ INDEX = 'index'
 function main()
 
     local current_dir = shell.dir()
+    
 
-    download_program(INDEX)
+    download_index(INDEX)
+
+    require INDEX
 
     fs.makeDir(TEMP_DIR)
     shell.setDir(TEMP_DIR)
-
-    require INDEX
 
     for k,program in pairs(PROGRAMS) do
         download_program(program)
@@ -23,6 +24,18 @@ function main()
     shell.setDir(current_dir)
     fs.delete(TEMP_DIR)
 
+end
+
+function download_index(index)
+    if index == nil then
+        index = INDEX
+    end
+    local file_name = index .. '.lua'
+    local full_url = get_program_url(index)
+    local result = shell.run('wget', full_url)
+    if not result then
+        error('Could not download ' .. program)
+    end
 end
 
 function download_program(program)
@@ -34,7 +47,7 @@ function download_program(program)
         fs.delete(target_file)
         fs.move(TEMP_DIR .. '/' .. file_name, target_file)
     else
-        print('Could not download ' .. program)
+        error('Could not download ' .. program)
     end
 end
 
