@@ -21,12 +21,14 @@ function update_index(index)
     local file_name = TARGET_DIR .. '/' .. index .. '.lua'
     local full_url = get_program_url(index)
     download(full_url, file_name)
+    print('Successfully updated package index from ' .. url)
 end
 
 function download_program(program)
     local file_name = TARGET_DIR .. '/' .. program .. '.lua'
     local full_url = get_program_url(program)
     download(full_url, file_name)
+    print('Downloaded ' .. program)
 end
 
 function get_program_url(program, branch)
