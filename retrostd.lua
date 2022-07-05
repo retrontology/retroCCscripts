@@ -49,14 +49,14 @@ function calculate_direct_distance(x1, y1, z1, x2, y2, z2)
 end
 
 function download(url, path)
-    local result = http.get(full_url)
+    local result = http.get(url)
     if path == nil then 
-        path = basename(full_url)
+        path = basename(url)
     end
     if not result then
-        error('Could not download ' .. full_url)
+        error('Could not download ' .. url)
     else
-        local outfile = fs.open(path)
+        local outfile = fs.open(path, 'w')
         outfile.write(result.readAll())
         outfile.close()
     end
