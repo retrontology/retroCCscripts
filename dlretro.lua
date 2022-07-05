@@ -12,7 +12,7 @@ function main()
 
     download_index(INDEX)
 
-    require INDEX
+    require(INDEX)
 
     fs.makeDir(TEMP_DIR)
     shell.setDir(TEMP_DIR)
