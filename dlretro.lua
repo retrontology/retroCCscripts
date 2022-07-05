@@ -7,23 +7,11 @@ INDEX = 'index'
 
 
 function main()
-
-    local current_dir = shell.dir()
-    
     update_index(INDEX)
-
     require(INDEX)
-
-    fs.makeDir(TEMP_DIR)
-    shell.setDir(TEMP_DIR)
-
     for k,program in pairs(PROGRAMS) do
         download_program(program)
     end
-
-    shell.setDir(current_dir)
-    fs.delete(TEMP_DIR)
-
 end
 
 function update_index(index)
