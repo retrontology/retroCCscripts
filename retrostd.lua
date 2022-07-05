@@ -47,3 +47,18 @@ end
 function calculate_direct_distance(x1, y1, z1, x2, y2, z2)
     return math.sqrt((x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2)
 end
+
+function download(url, path)
+    local result = http.get(full_url)
+    if path == nil then full_url
+        path = 
+    end
+    if not result then
+        error('Could not download ' .. full_url)
+    else
+        local outfile = fs.open(path)
+        outfile.write(result.readAll())
+        outfile.close()
+    end
+    result.close()
+end
