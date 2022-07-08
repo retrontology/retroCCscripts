@@ -60,7 +60,7 @@ function get_remote_sha(program, branch)
     if branch == nil then
         branch = DEFAULT_BRANCH
     end
-    local url = API_URL .. 'repos/' .. REPO .. '/contents/' .. program .. '.lua?ref=' branch
+    local url = API_URL .. 'repos/' .. REPO .. '/contents/' .. program .. '.lua?ref=' .. branch
     local result = http.get(url)
     if not result then
         error('Could not fetch sha for ' .. program)
