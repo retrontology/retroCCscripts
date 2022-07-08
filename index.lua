@@ -12,5 +12,6 @@ PROGRAMS = {
     'mine_stairs',
     'ocean_monument',
     'refuel',
+    'farm',
     'dlretro'
 }

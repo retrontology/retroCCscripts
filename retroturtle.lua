@@ -17,6 +17,15 @@ COORDINATES = {
     Z = 0
 }
 
+current_direction = DIRECTIONS.NORTH
+
+ORIGIN = {
+    X = COORDINATES.X,
+    Y = COORDINATES.Y,
+    Z = COORDINATES.Z,
+    DIR = current_direction
+}
+
 PASSABLE = {
     'minecraft:water',
     'minecraft:bubble_column',
@@ -30,13 +39,50 @@ FUEL = {
 }
 
 mine_stack = {}
-current_direction = DIRECTIONS.NORTH
 
-function sync_gps(timeout)
+function sync_gps(timeout, set_origin)
     if timeout == nil then
         timeout = DEFAULT_GPS_TIMEOUT
     end
     COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
+    if set_origin == false then
+        ORIGIN = {
+            X = COORDINATES.X,
+            Y = COORDINATES.Y,
+            Z = COORDINATES.Z,
+            DIR = current_direction
+        }
+    end
+end
+
+function sync_direction(timeout)
+    sync_gps(timeout)
+    saved_coords = deepcopy(COORDINATES)
+    local result = false
+    for i=1,4 do
+        if move_forward() then
+            result = true
+            break
+        else
+            turn_left()
+        end
+    end
+    if not result then
+        error('Could not sync direction!!!')
+    end
+    sync_gps(timeout)
+    local x_diff = COORDINATES.X - saved_coords.X
+    local z_diff = COORDINATES.Z - saved_coords.Z
+    if x_diff == 1 then
+        current_direction = DIRECTIONS.EAST
+    elseif x_diff == -1 then
+        current_direction = DIRECTIONS.WEST
+    elseif z_diff == 1 then
+        current_direction = DIRECTIONS.SOUTH
+    elseif z_diff == -1 then
+        current_direction = DIRECTIONS.NORTH
+    end
+    move_backward()
 end
 
 function dump_inv()
@@ -73,36 +119,6 @@ function dump_inv_up()
                 error('Target inventory full!')
         end
     end
-end
-
-function sync_direction(timeout)
-    sync_gps(timeout)
-    saved_coords = deepcopy(COORDINATES)
-    local result = false
-    for i=1,4 do
-        if move_forward() then
-            result = true
-            break
-        else
-            turn_left()
-        end
-    end
-    if not result then
-        error('Could not sync direction!!!')
-    end
-    sync_gps(timeout)
-    local x_diff = COORDINATES.X - saved_coords.X
-    local z_diff = COORDINATES.Z - saved_coords.Z
-    if x_diff == 1 then
-        current_direction = DIRECTIONS.EAST
-    elseif x_diff == -1 then
-        current_direction = DIRECTIONS.WEST
-    elseif z_diff == 1 then
-        current_direction = DIRECTIONS.SOUTH
-    elseif z_diff == -1 then
-        current_direction = DIRECTIONS.NORTH
-    end
-    move_backward()
 end
 
 function find_empty_slots()

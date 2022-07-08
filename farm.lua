@@ -14,8 +14,18 @@ function main()
         else
             turn_left()
         end
-        for i=1,width do
-
+        for j=1,width do
+            turtle.digDown()
+            local index = find_item(SEED)
+            if index == nil then
+                dump_harvest()
+                error('Ran out of seeds!')
+            end
+            turtle.select(index)
+            turtle.placeDown()
+            if j < width then
+                move_forward()
+            end
         end
         if i < length then
             if i % 2 == 0 then
@@ -26,10 +36,13 @@ function main()
             move_forward()
         end 
     end
+    dump_harvest()
 end
 
-function dump_inv()
-
+function dump_harvest()
+    go_directly_to(0,0,0)
+    face_direction(DIRECTIONS.NORTH)
+    dump_inv_down()
 end
 
 main()
