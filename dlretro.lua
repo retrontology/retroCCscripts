@@ -44,7 +44,7 @@ end
 function download(url, path)
     local result = http.get(url)
     if path == nil then 
-        path = basename(url)
+        path = string.match(url, ".*/(.*)")
     end
     if not result then
         error('Could not download ' .. url)
@@ -62,9 +62,6 @@ function get_remote_sha(program, branch)
     end
     local url = API_URL .. 'repos/' .. REPO .. '/contents/' .. program .. '.lua?ref=' branch
     local result = http.get(url)
-    if path == nil then 
-        path = basename(url)
-    end
     if not result then
         error('Could not fetch sha for ' .. program)
     end
