@@ -15,14 +15,20 @@ function main()
             turn_left()
         end
         for j=1,width do
-            turtle.digDown()
-            local index = find_item(SEED)
-            if index == nil then
-                dump_harvest()
-                error('Ran out of seeds!')
+            local has_block, data = turtle.inspectDown()
+            if has_block and data.name == PLANT and data.stage.age == GROWN_AGE then
+                turtle.digDown()
             end
-            turtle.select(index)
-            turtle.placeDown()
+            has_block, data = turtle.inspectDown()
+            if not has_block then
+                local index = find_item(SEED)
+                if index == nil then
+                    dump_harvest()
+                    error('Ran out of seeds!')
+                end
+                turtle.select(index)
+                turtle.placeDown()
+            end
             if j < width then
                 move_forward()
             end

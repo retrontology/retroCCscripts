@@ -69,11 +69,11 @@ function get_remote_sha(program, branch)
         error('Could not fetch sha for ' .. program)
     end
     result = unserializeJSON(result.readAll())
-    return result['sha']
+    return result.sha
 end
 
 function get_local_sha(program)
-    
+
 end
 
 main()
