@@ -106,6 +106,7 @@ function dump_inv_down()
             local result = turtle.dropDown()
             if result == false then
                 error('Target inventory full!')
+            end
         end
     end
 end
@@ -118,6 +119,7 @@ function dump_inv_up()
             local result = turtle.dropUp()
             if result == false then
                 error('Target inventory full!')
+            end
         end
     end
 end
