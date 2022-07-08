@@ -16,7 +16,7 @@ function main()
         end
         for j=1,width do
             local has_block, data = turtle.inspectDown()
-            if has_block and data.name == PLANT and data.stage.age == GROWN_AGE then
+            if has_block and data.name == PLANT and data.state.age == GROWN_AGE then
                 turtle.digDown()
             end
             has_block, data = turtle.inspectDown()
