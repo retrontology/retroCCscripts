@@ -37,7 +37,7 @@ function get_program_url(program, branch)
     if branch == nil then
         branch = DEFAULT_BRANCH
     end
-    local url = URL .. REPO .. '/raw/' .. branch .. url .. '/' .. program .. '.lua'
+    local url = URL .. REPO .. '/raw/' .. branch .. '/' .. program .. '.lua'
     return url 
 end
 
