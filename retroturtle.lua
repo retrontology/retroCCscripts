@@ -93,6 +93,7 @@ function dump_inv()
             local result = turtle.drop()
             if result == false then
                 error('Target inventory full!')
+            end
         end
     end
 end
