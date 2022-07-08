@@ -1,5 +1,3 @@
-require "retrostd"
-
 URL = 'https://github.com/retrontology/retroCCscripts/raw/'
 DEFAULT_BRANCH = 'main'
 TARGET_DIR = '/'
@@ -12,6 +10,21 @@ function main()
     for k,program in pairs(PROGRAMS) do
         download_program(program)
     end
+end
+
+function download(url, path)
+    local result = http.get(url)
+    if path == nil then 
+        path = basename(url)
+    end
+    if not result then
+        error('Could not download ' .. url)
+    else
+        local outfile = fs.open(path, 'w')
+        outfile.write(result.readAll())
+        outfile.close()
+    end
+    result.close()
 end
 
 function update_index(index)

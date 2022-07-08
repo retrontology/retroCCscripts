@@ -39,6 +39,42 @@ function sync_gps(timeout)
     COORDINATES.X, COORDINATES.Y, COORDINATES.Z = gps.locate(timeout)
 end
 
+function dump_inv()
+    for i=1,16 do
+        turtle.select(i)
+        local item = turtle.getItemDetail()
+        if item ~= nil then
+            local result = turtle.drop()
+            if result == false then
+                error('Target inventory full!')
+        end
+    end
+end
+
+function dump_inv_down()
+    for i=1,16 do
+        turtle.select(i)
+        local item = turtle.getItemDetail()
+        if item ~= nil then
+            local result = turtle.dropDown()
+            if result == false then
+                error('Target inventory full!')
+        end
+    end
+end
+
+function dump_inv_up()
+    for i=1,16 do
+        turtle.select(i)
+        local item = turtle.getItemDetail()
+        if item ~= nil then
+            local result = turtle.dropUp()
+            if result == false then
+                error('Target inventory full!')
+        end
+    end
+end
+
 function sync_direction(timeout)
     sync_gps(timeout)
     saved_coords = deepcopy(COORDINATES)
