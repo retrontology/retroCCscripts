@@ -21,7 +21,7 @@ MONUMENT_NW_CORNER = {
 }
 
 function main()
-    gps_sync()
+    sync_direction()
     drain_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
 end
 
