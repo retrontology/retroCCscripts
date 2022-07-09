@@ -10,14 +10,14 @@ FUEL_CHEST = {
 }
 
 SAND_CHEST = {
-    X=0,
-    Y=0,
-    Z=0
+    X=320,
+    Y=63,
+    Z=-205
 }
 
 MONUMENT_NW_CORNER = {
-    X=0,
-    Z=0
+    X=322,
+    Z=-206
 }
 
 function main()
@@ -60,6 +60,7 @@ end
 
 function refill_sand()
     local saved_coords = deepcopy(COORDINATES)
+    move_up()
     go_directly_to(COORDINATES.X, SAND_CHEST.Y+1, COORDINATES.Z)
     go_directly_to(SAND_CHEST.X, SAND_CHEST.Y+1, SAND_CHEST.Z)
     local empties = {}
