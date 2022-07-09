@@ -232,7 +232,7 @@ function move_down()
     check_fuel()
     local result, err = turtle.down()
     if result then 
-        COORDINATES.Y = COORDINATES.Y + 1
+        COORDINATES.Y = COORDINATES.Y - 1
     end
     return result, err
 end
