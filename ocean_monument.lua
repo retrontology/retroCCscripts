@@ -49,7 +49,7 @@ function fill_sand()
             index = find_item('minecraft:sand')
             if index == nil then
                 refill_sand()
-                index find_item('minecraft:sand')
+                index = find_item('minecraft:sand')
             end
             turtle.select(index)
         end
