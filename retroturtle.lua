@@ -252,6 +252,7 @@ end
 function mine_forward()
     local has_block, data = turtle.inspect()
     local result = false
+    local err = nil
     while has_block and not contains(PASSABLE, data.name) do
         result, err = turtle.dig()
         has_block, data = turtle.inspect()
@@ -262,6 +263,7 @@ end
 function mine_up()
     local has_block, data = turtle.inspectUp()
     local result = false
+    local err = nil
     while has_block and not contains(PASSABLE, data.name) do
         result, err = turtle.digUp()
         has_block, data = turtle.inspectUp()
@@ -272,6 +274,7 @@ end
 function mine_down()
     local has_block, data = turtle.inspectDown()
     local result = false
+    local err = nil
     while has_block and not contains(PASSABLE, data.name) do
         result, err = turtle.digDown()
         has_block, data = turtle.inspectDown()

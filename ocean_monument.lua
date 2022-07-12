@@ -30,7 +30,7 @@ MONUMENT_BASE_Y = 39
 
 function main()
     sync_direction()
-    drain_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
+    --drain_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
     clear_monument(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z)
 end
 
