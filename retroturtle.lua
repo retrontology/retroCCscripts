@@ -251,26 +251,32 @@ end
 
 function mine_forward()
     local has_block, data = turtle.inspect()
+    local result = false
     while has_block and not contains(PASSABLE, data.name) do
-        turtle.dig()
+        result, err = turtle.dig()
         has_block, data = turtle.inspect()
     end
+    return result, err
 end
 
 function mine_up()
     local has_block, data = turtle.inspectUp()
+    local result = false
     while has_block and not contains(PASSABLE, data.name) do
-        turtle.digUp()
+        result, err = turtle.digUp()
         has_block, data = turtle.inspectUp()
     end
+    return result, err
 end
 
 function mine_down()
     local has_block, data = turtle.inspectDown()
+    local result = false
     while has_block and not contains(PASSABLE, data.name) do
-        turtle.digDown()
+        result, err = turtle.digDown()
         has_block, data = turtle.inspectDown()
     end
+    return result, err
 end
 
 function place_item(item)
