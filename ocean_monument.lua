@@ -20,10 +20,29 @@ MONUMENT_NW_CORNER = {
     Z=-206
 }
 
+MONUMENT_BASE_Y = 39
+
 function main()
     sync_direction()
-    drain_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
+    --drain_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
+    clear_monument(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z)
 end
+
+function clear_monument(x, base_y, z)
+    x = x + 1
+    z = z + 1
+    local height = SEA_LEVEL - base_y
+    local y = SEA_LEVEL + 1
+    for i=1,height do
+        for j=0,57 do
+            for k=0,57 do
+                go_directly_to(x+j, y, z+k)
+                mine_down()
+            end
+        end
+        y = y - 1
+    end
+    dump_inv()
 
 function drain_monument(x, z)
     for i=0,59 do
