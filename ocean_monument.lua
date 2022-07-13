@@ -22,8 +22,8 @@ GLASS_CHEST = {
 }
 
 MONUMENT_NW_CORNER = {
-    X=322,
-    Z=-206
+    X=323,
+    Z=-205
 }
 
 MONUMENT_BASE_Y = 39
@@ -34,21 +34,44 @@ function main()
         fill_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
     elseif command == 'clear' then
         clear_monument(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z)
+    elseif command == 'shell' then
+        build_shell(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z)
     else
         error('You must specify either "fill" or "clear"')
     end
-
-    
 end
 
 function build_shell(x, base_y, z)
+    x = x - 1
+    z = z - 1
+    for i in 0,58 do
+        go_directly_to(x+i, SEA_LEVEL+1, z)
+        build_column()
+    end
+    for i in 0,58 do
+        go_directly_to(x+59, SEA_LEVEL+1, z+i)
+        build_column()
+    end
+    for i in 0,58 do
+        go_directly_to(x+59-i, SEA_LEVEL+1, z+59)
+        build_column()
+    end
+    for i in 0,58 do
+        go_directly_to(x, SEA_LEVEL+1, z+59-i)
+        build_column()
+    end
+end
 
+function build_column()
+    local has_block, data = turtle.inspectDown()
+    if has_block and data.name == 'minecraft:glass' then
+        return
+    end
+    --while 
 end
 
 function clear_monument(x, base_y, z)
     sync_direction()
-    x = x + 1
-    z = z + 1
     local height = SEA_LEVEL - base_y
     local y = SEA_LEVEL + 1
     for i=1,height do
@@ -68,6 +91,8 @@ end
 
 function fill_monument(x, z)
     sync_direction()
+    x = x - 1
+    z = z - 1
     for i=0,59 do
         for j=0,59 do
             go_directly_to(x+i, SEA_LEVEL + 1, z+j)
