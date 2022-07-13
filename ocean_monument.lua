@@ -29,9 +29,16 @@ MONUMENT_NW_CORNER = {
 MONUMENT_BASE_Y = 39
 
 function main()
-    sync_direction()
-    --drain_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
-    clear_monument(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z)
+    local command = arg[1]
+    if command == 'fill' then
+        fill_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
+    elseif command == 'clear' then
+        clear_monument(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z)
+    else
+        error('You must specify either "fill" or "clear"')
+    end
+
+    
 end
 
 function build_shell(x, base_y, z)
@@ -39,6 +46,7 @@ function build_shell(x, base_y, z)
 end
 
 function clear_monument(x, base_y, z)
+    sync_direction()
     x = x + 1
     z = z + 1
     local height = SEA_LEVEL - base_y
@@ -58,7 +66,8 @@ function clear_monument(x, base_y, z)
     dump_inv()
 end
 
-function drain_monument(x, z)
+function fill_monument(x, z)
+    sync_direction()
     for i=0,59 do
         for j=0,59 do
             go_directly_to(x+i, SEA_LEVEL + 1, z+j)
