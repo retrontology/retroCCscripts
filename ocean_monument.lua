@@ -136,16 +136,16 @@ function refill_sand()
     local saved_coords = deepcopy(COORDINATES)
     go_directly_to(COORDINATES.X, SAND_CHEST.Y+1, COORDINATES.Z)
     go_directly_to(SAND_CHEST.X, SAND_CHEST.Y+1, SAND_CHEST.Z)
-    local empties = {}
     for i=1,16 do
         turtle.select(i)
         local details = turtle.getItemDetail()
-        if details == nil or (details.name == 'minecraft:sand') then
-            local wanted_amount = turtle.getItemSpace()
-            local result = turtle.suckDown(wanted_amount)
-            if result == false then
-                error('Could not refill sand in slot ' .. i)
-            end
+        if details ~= nil and (details.name ~= 'minecraft:sand') then
+            turtle.drop()
+        end
+        local wanted_amount = turtle.getItemSpace()
+        local result = turtle.suckDown(wanted_amount)
+        if result == false then
+            error('Could not refill sand in slot ' .. i)
         end
     end
     go_directly_to(saved_coords.X, saved_coords.Y, saved_coords.Z)
@@ -155,7 +155,6 @@ function refill_fuel()
     local saved_coords = deepcopy(COORDINATES)
     go_directly_to(COORDINATES.X, FUEL_CHEST.Y+1, COORDINATES.Z)
     go_directly_to(FUEL_CHEST.X, FUEL_CHEST.Y+1, FUEL_CHEST.Z)
-    local empties = {}
     for i=1,16 do
         turtle.select(i)
         local details = turtle.getItemDetail()
