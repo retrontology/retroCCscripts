@@ -33,11 +33,15 @@ function main()
     if command == 'fill' then
         fill_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
     elseif command == 'clear' then
-        clear_monument(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z)
+        local offset = 0
+        if arg[2] ~= nil then
+            offset = tonumber(arg[2])
+        end
+        clear_monument(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z, offset)
     elseif command == 'shell' then
         build_shell(MONUMENT_NW_CORNER.X, MONUMENT_BASE_Y, MONUMENT_NW_CORNER.Z)
     else
-        error('You must specify either "fill" or "clear"')
+        error('You must specify either fill, clear, or shell')
     end
 end
 
@@ -70,16 +74,19 @@ function build_column()
     --while 
 end
 
-function clear_monument(x, base_y, z)
+function clear_monument(x, base_y, z, offset)
+    if offset == nil then
+        offset = 0
+    end
     sync_direction()
-    local height = SEA_LEVEL - base_y
-    local y = SEA_LEVEL + 1
+    local height = SEA_LEVEL - base_y - offset
+    local y = SEA_LEVEL + 1 - offset
     for i=1,height do
         for j=0,57 do
             for k=0,57 do
                 go_directly_to(x+j, y, z+k)
                 if not mine_down() then
-                    turtle.placeDown()
+                    fill_sand()
                     mine_down()
                 end
             end
