@@ -39,6 +39,7 @@ function main()
 end
 
 function build_shell(x, base_y, z)
+    sync_direction()
     x = x - 1
     z = z - 1
     for i=0,58 do
