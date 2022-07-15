@@ -41,19 +41,19 @@ end
 function build_shell(x, base_y, z)
     x = x - 1
     z = z - 1
-    for i in 0,58 do
+    for i=0,58 do
         go_directly_to(x+i, SEA_LEVEL+1, z)
         build_column('minecraft:glass', GLASS_CHEST)
     end
-    for i in 0,58 do
+    for i=0,58 do
         go_directly_to(x+59, SEA_LEVEL+1, z+i)
         build_column('minecraft:glass', GLASS_CHEST)
     end
-    for i in 0,58 do
+    for i=0,58 do
         go_directly_to(x+59-i, SEA_LEVEL+1, z+59)
         build_column('minecraft:glass', GLASS_CHEST)
     end
-    for i in 0,58 do
+    for i=0,58 do
         go_directly_to(x, SEA_LEVEL+1, z+59-i)
         build_column('minecraft:glass', GLASS_CHEST)
     end
