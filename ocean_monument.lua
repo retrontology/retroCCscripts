@@ -1,13 +1,6 @@
 require "retroturtle"
 
 SEA_LEVEL = 62
-FUEL = 'minecraft:coal'
-
-FUEL_CHEST = {
-    X=0,
-    Y=0,
-    Z=0
-}
 
 SAND_CHEST = {
     X=320,
@@ -50,28 +43,38 @@ function build_shell(x, base_y, z)
     z = z - 1
     for i in 0,58 do
         go_directly_to(x+i, SEA_LEVEL+1, z)
-        build_column()
+        build_column('minecraft:glass', GLASS_CHEST)
     end
     for i in 0,58 do
         go_directly_to(x+59, SEA_LEVEL+1, z+i)
-        build_column()
+        build_column('minecraft:glass', GLASS_CHEST)
     end
     for i in 0,58 do
         go_directly_to(x+59-i, SEA_LEVEL+1, z+59)
-        build_column()
+        build_column('minecraft:glass', GLASS_CHEST)
     end
     for i in 0,58 do
         go_directly_to(x, SEA_LEVEL+1, z+59-i)
-        build_column()
+        build_column('minecraft:glass', GLASS_CHEST)
     end
 end
 
-function build_column()
+function build_column(material, refill_chest)
     local has_block, data = turtle.inspectDown()
-    if has_block and data.name == 'minecraft:glass' then
+    if has_block and data.name == material then
         return
     end
-    --while 
+    go_directly_to(COORDINATES.X, MONUMENT_BASE_Y + 1, COORDINATES.Z)
+    while COORDINATES.Y < SEA_LEVEL + 1 do
+        local index = find_item(material)
+        if index == nil then
+            refill_material(material, refill_chest)
+            index = find_item(material)
+        end
+        turtle.select(index)
+        turtle.placeDown()
+        move_up()
+    end
 end
 
 function clear_monument(x, base_y, z, offset)
@@ -108,62 +111,20 @@ function fill_monument(x, z)
     end
 end
 
-function fill_sand()
-    local index = find_item('minecraft:sand')
-    if index == nil then
-        refill_sand()
-        index = find_item('minecraft:sand')
-    end
-    turtle.select(index)
-    local has_block, data = turtle.inspectDown()
-    while not has_block or data.name == 'minecraft:water' do
-        if turtle.getItemCount() > 0 then 
-            turtle.placeDown()
-        else
-            index = find_item('minecraft:sand')
-            if index == nil then
-                refill_sand()
-                index = find_item('minecraft:sand')
-            end
-            turtle.select(index)
-        end
-        has_block, data = turtle.inspectDown()
-    end
-    
-end
-
-function refill_sand()
+function refill_material(material, chest_location)
     local saved_coords = deepcopy(COORDINATES)
-    go_directly_to(COORDINATES.X, SAND_CHEST.Y+1, COORDINATES.Z)
-    go_directly_to(SAND_CHEST.X, SAND_CHEST.Y+1, SAND_CHEST.Z)
+    go_directly_to(COORDINATES.X, chest_location.Y+1, COORDINATES.Z)
+    go_directly_to(chest_location.X, chest_location.Y+1, chest_location.Z)
     for i=1,16 do
         turtle.select(i)
         local details = turtle.getItemDetail()
-        if details ~= nil and (details.name ~= 'minecraft:sand') then
+        if details ~= nil and (details.name ~= material) then
             turtle.drop()
         end
         local wanted_amount = turtle.getItemSpace()
         local result = turtle.suckDown(wanted_amount)
         if result == false then
-            error('Could not refill sand in slot ' .. i)
-        end
-    end
-    go_directly_to(saved_coords.X, saved_coords.Y, saved_coords.Z)
-end
-
-function refill_fuel()
-    local saved_coords = deepcopy(COORDINATES)
-    go_directly_to(COORDINATES.X, FUEL_CHEST.Y+1, COORDINATES.Z)
-    go_directly_to(FUEL_CHEST.X, FUEL_CHEST.Y+1, FUEL_CHEST.Z)
-    for i=1,16 do
-        turtle.select(i)
-        local details = turtle.getItemDetail()
-        if details == nil or details.name == FUEL then
-            local wanted_amount = turtle.getItemSpace()
-            local result = turtle.suckDown(wanted_amount)
-            if result == false then
-                error('Could not refill fuel in slot ' .. i)
-            end
+            error('Could not refill ' .. material .. ' in slot ' .. i)
         end
     end
     go_directly_to(saved_coords.X, saved_coords.Y, saved_coords.Z)
