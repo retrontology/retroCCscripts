@@ -65,8 +65,9 @@ function build_column(material, refill_chest)
     if has_block and data.name == material then
         return
     end
-    go_directly_to(COORDINATES.X, MONUMENT_BASE_Y + 1, COORDINATES.Z)
+    go_directly_to(COORDINATES.X, MONUMENT_BASE_Y, COORDINATES.Z)
     while COORDINATES.Y < SEA_LEVEL + 1 do
+        move_up()
         local index = find_item(material)
         if index == nil then
             refill_material(material, refill_chest)
@@ -74,7 +75,6 @@ function build_column(material, refill_chest)
         end
         turtle.select(index)
         turtle.placeDown()
-        move_up()
     end
 end
 
