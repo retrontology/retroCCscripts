@@ -102,10 +102,12 @@ end
 
 function fill_monument(x, z)
     sync_direction()
-    x = x - 1
-    z = z - 1
-    for i=0,59 do
-        for j=0,59 do
+    --x = x - 1
+    --z = z - 1
+    --for i=0,59 do
+    for i=0,57 do
+        --for j=0,59 do
+        for j=0,57 do
             go_directly_to(x+i, SEA_LEVEL + 1, z+j)
             fill_sand()
         end
