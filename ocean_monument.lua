@@ -114,6 +114,34 @@ end
 
 function fill_monument(x, z, offset)
     sync_direction()
+    go_directly_to(x+offset, SEA_LEVEL + 1, z)
+    face_direction(DIRECTIONS.EAST)
+    for i=1+offset,58 do
+        if i % 2 == 1 then
+            turn_right()
+        else
+            turn_left()
+        end
+        for j=1,58-1 do
+            fill_sand()
+            mine_forward()
+            move_forward()
+        end
+        fill_sand()
+        if i < length then
+            if i % 2 == 1 then
+                turn_left()
+            else
+                turn_right()
+            end
+            mine_forward()
+            move_forward()
+        end
+    end
+end
+
+function fill_monument_old(x, z, offset)
+    sync_direction()
     if offset == nil then
         offset = 0
     end
