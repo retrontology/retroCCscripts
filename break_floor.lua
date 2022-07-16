@@ -29,7 +29,6 @@ function break_floor(length, width)
             move_forward()
         end
     end
-    go_directly_to(0, 0, 0)
 end
 
 main()
