@@ -14,5 +14,6 @@ PROGRAMS = {
     'ocean_monument',
     'refuel',
     'farm',
+    'quarry',
     'dlretro'
 }

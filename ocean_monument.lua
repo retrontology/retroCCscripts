@@ -1,4 +1,4 @@
-require "retroturtle"
+require "quarry"
 
 SEA_LEVEL = 39
 
@@ -69,7 +69,7 @@ function build_column(material, refill_chest)
     if has_block and data.name == material then
         return
     end
-    go_directly_to(COORDINATES.X, MONUMENT_BASE_Y, COORDINATES.Z)
+    go_directly_to(COORDINATES.X, 0, COORDINATES.Z)
     while COORDINATES.Y < SEA_LEVEL + 1 do
         move_up()
         local index = find_item(material)
@@ -83,6 +83,14 @@ function build_column(material, refill_chest)
 end
 
 function clear_monument(x, base_y, z, offset)
+    sync_direction()
+    local start_y = SEA_LEVEL + 1 - offset
+    go_directly_to(x, start_y, z)
+    face_direction(DIRECTIONS.EAST)
+    quarry(58, 58, start_y - base_y + 1)
+end
+
+function clear_monument_old(x, base_y, z, offset)
     if offset == nil then
         offset = 0
     end
