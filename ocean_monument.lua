@@ -24,7 +24,11 @@ MONUMENT_BASE_Y = 39
 function main()
     local command = arg[1]
     if command == 'fill' then
-        fill_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z)
+        local offset = 0
+        if arg[2] ~= nil then
+            offset = tonumber(arg[2])
+        end
+        fill_monument(MONUMENT_NW_CORNER.X, MONUMENT_NW_CORNER.Z, offset)
     elseif command == 'clear' then
         local offset = 0
         if arg[2] ~= nil then
@@ -100,12 +104,15 @@ function clear_monument(x, base_y, z, offset)
     dump_inv()
 end
 
-function fill_monument(x, z)
+function fill_monument(x, z, offset)
     sync_direction()
+    if offset == nil then
+        offset = 0
+    end
     --x = x - 1
     --z = z - 1
     --for i=0,59 do
-    for i=0,57 do
+    for i=offset,57 do
         --for j=0,59 do
         for j=0,57 do
             go_directly_to(x+i, SEA_LEVEL + 1, z+j)
