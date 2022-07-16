@@ -183,6 +183,7 @@ end
 
 function refill_material(material, chest_location)
     local saved_coords = deepcopy(COORDINATES)
+    local saved_dir = current_direction
     go_directly_to(COORDINATES.X, chest_location.Y+1, COORDINATES.Z)
     go_directly_to(chest_location.X, chest_location.Y+1, chest_location.Z)
     for i=1,16 do
@@ -198,6 +199,7 @@ function refill_material(material, chest_location)
         end
     end
     go_directly_to(saved_coords.X, saved_coords.Y, saved_coords.Z)
+    face_direction(saved_dir)
 end
 
 main()
