@@ -1,6 +1,6 @@
 require "retroturtle"
 
-SEA_LEVEL = 62
+SEA_LEVEL = 39
 
 SAND_CHEST = {
     X=320,
@@ -110,6 +110,30 @@ function fill_monument(x, z)
             fill_sand()
         end
     end
+end
+
+function fill_sand()
+    local index = find_item('minecraft:sand')
+    if index == nil then
+        refill_material('minecraft:sand', SAND_CHEST)
+        index = find_item('minecraft:sand')
+    end
+    turtle.select(index)
+    local has_block, data = turtle.inspectDown()
+    while not has_block or data.name == 'minecraft:water' do
+        if turtle.getItemCount() > 0 then 
+            turtle.placeDown()
+        else
+            index = find_item('minecraft:sand')
+            if index == nil then
+                refill_material('minecraft:sand', SAND_CHEST)
+                index = find_item('minecraft:sand')
+            end
+            turtle.select(index)
+        end
+        has_block, data = turtle.inspectDown()
+    end
+
 end
 
 function refill_material(material, chest_location)
