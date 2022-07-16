@@ -1,6 +1,6 @@
 require "retroturtle"
 
-SEA_LEVEL = 39
+SEA_LEVEL = 38
 
 SAND_CHEST = {
     X=320,
@@ -128,7 +128,7 @@ function fill_monument(x, z, offset)
             move_forward()
         end
         fill_sand()
-        if i < length then
+        if i < 58 then
             if i % 2 == 1 then
                 turn_left()
             else
