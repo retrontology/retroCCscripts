@@ -120,6 +120,9 @@ function fill_sand()
     end
     turtle.select(index)
     local has_block, data = turtle.inspectDown()
+    if has_block and data.name ~= 'minecraft:sand' then
+        mine_down()
+    end
     while not has_block or data.name == 'minecraft:water' do
         if turtle.getItemCount() > 0 then 
             turtle.placeDown()
