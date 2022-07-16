@@ -117,7 +117,7 @@ function fill_monument(x, z, offset)
     go_directly_to(x+offset, SEA_LEVEL + 1, z)
     face_direction(DIRECTIONS.EAST)
     for i=1+offset,58 do
-        if i % 2 == 1 then
+        if i-offset % 2 == 1 then
             turn_right()
         else
             turn_left()
