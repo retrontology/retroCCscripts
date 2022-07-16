@@ -282,6 +282,43 @@ function mine_down()
     return result, err
 end
 
+function break_floor(length, width)
+    for i=1,length do
+        if i % 2 == 1 then
+            turn_right()
+        else
+            turn_left()
+        end
+        for j=1,width-1 do
+            mine_down()
+            mine_forward()
+            move_forward()
+        end
+        mine_down()
+        if i < length then
+            if i % 2 == 1 then
+                turn_left()
+            else
+                turn_right()
+            end
+            mine_forward()
+            move_forward()
+        end
+    end
+end
+
+function quarry(length, width, height)
+    for i=1,height do
+        break_floor(length, width)
+        mine_down()
+        move_down()
+        turn_right()
+        if length % 2 == 0 then
+            turn_right()
+        end
+    end
+end
+
 function place_item(item)
     local item = find_item(item)
     if item == nil then
