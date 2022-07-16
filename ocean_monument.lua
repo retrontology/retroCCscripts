@@ -129,7 +129,7 @@ function fill_monument(x, z, offset)
         end
         fill_sand()
         if i < 58 then
-            if i % 2 == 1 then
+            if i-offset % 2 == 1 then
                 turn_left()
             else
                 turn_right()
