@@ -1,6 +1,6 @@
 require "retroturtle"
 
-SEA_LEVEL = 38
+SEA_LEVEL = 62
 
 SAND_CHEST = {
     X=320,
