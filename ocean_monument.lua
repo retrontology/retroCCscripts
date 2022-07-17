@@ -20,6 +20,7 @@ MONUMENT_NW_CORNER = {
 }
 
 MONUMENT_BASE_Y = 39
+COLUMN_BOTTOM = -32
 
 function main()
     local command = arg[1]
@@ -69,7 +70,7 @@ function build_column(material, refill_chest)
     if has_block and data.name == material then
         return
     end
-    go_directly_to(COORDINATES.X, 0, COORDINATES.Z)
+    go_directly_to(COORDINATES.X, COLUMN_BOTTOM, COORDINATES.Z)
     while COORDINATES.Y < SEA_LEVEL + 1 do
         move_up()
         local index = find_item(material)
