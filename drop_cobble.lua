@@ -14,7 +14,10 @@ JUNK = {
     'minecraft:granite',
     'minecraft:diorite',
     'minecraft:andesite',
-    'minecraft:blackstone'
+    'minecraft:blackstone',
+    'minecraft:calcite',
+    'create:limestone',
+    'minecraft:flint'
 }
 
 function main()
