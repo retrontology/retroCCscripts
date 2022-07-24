@@ -5,16 +5,16 @@ JUNK = {
     'minecraft:gravel',
     'minecraft:netherrack',
     'minecraft:soul_sand',
-    'minecraft.mossy_cobblestone',
-    'minecraft.tuff',
-    'minecraft.calcite',
-    'minecraft.basalt',
-    'minecraft.polished_basalt',
-    'minecraft.smooth_basalt',
-    'minecraft.granite',
-    'minecraft.diorite',
-    'minecraft.andesite',
-    'minecraft.blackstone'
+    'minecraft:mossy_cobblestone',
+    'minecraft:tuff',
+    'minecraft:calcite',
+    'minecraft:basalt',
+    'minecraft:polished_basalt',
+    'minecraft:smooth_basalt',
+    'minecraft:granite',
+    'minecraft:diorite',
+    'minecraft:andesite',
+    'minecraft:blackstone'
 }
 
 function main()
