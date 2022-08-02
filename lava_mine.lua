@@ -55,6 +55,7 @@ function main()
                 while has_block and (data.name == 'minecraft:lava' or data.name == 'minecraft:obsidian' or data.name == 'minecraft:cobblestone') do
                     mine_forward()
                     move_forward()
+                    has_block, data = turtle.inspectDown()
                 end
                 turn_left()
                 turn_left()
