@@ -13,6 +13,8 @@ function main()
     run_subroutines(SUBROUTINES)
     local row_count = 0
     local non_valid = 0
+    mine_forward()
+    move_forward()
     local has_block, data = turtle.inspectDown()
     while true do
         if row_count % 2 == 0 then
