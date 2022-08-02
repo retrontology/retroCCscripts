@@ -45,7 +45,7 @@ function main()
                 face_direction(DIRECTIONS.NORTH)
                 mine_forward()
                 move_forward()
-                row_count += 1
+                row_count = row_count + 1
                 if row_count % 2 == 1 then
                     face_direction(DIRECTIONS.EAST)
                 else
