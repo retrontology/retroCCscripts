@@ -88,7 +88,12 @@ function error_return(err)
 end
 
 function inv_full()
-    return false
+    for i=1,16 do
+        if turtle.getItemSpace(i) > 0 then
+            return false
+        end
+    end
+    return true
 end
 
 main()
