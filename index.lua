@@ -15,5 +15,6 @@ PROGRAMS = {
     'refuel',
     'farm',
     'quarry',
-    'dlretro'
+    'lava_mine',
+    'dlretro',
 }
