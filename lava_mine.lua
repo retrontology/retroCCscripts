@@ -17,7 +17,6 @@ function main()
     move_forward()
     local has_block, data = turtle.inspectDown()
     while true do
-        print('Starting row ' .. row_count)
         if row_count % 2 == 0 then
             face_direction(DIRECTIONS.EAST)
         else
@@ -60,6 +59,7 @@ function main()
                 turn_left()
                 turn_left()
                 move_forward()
+                print('Starting row ' .. row_count)
             end
         end
     end
