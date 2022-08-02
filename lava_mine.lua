@@ -17,6 +17,7 @@ function main()
     move_forward()
     local has_block, data = turtle.inspectDown()
     while true do
+        print('Starting row ' .. row_count)
         if row_count % 2 == 0 then
             face_direction(DIRECTIONS.EAST)
         else
@@ -52,7 +53,7 @@ function main()
                     face_direction(DIRECTIONS.WEST)
                 end
                 has_block, data = turtle.inspectDown()
-                while has_block and data.name == 'minecraft:lava' or data.name == 'minecraft:obsidian' or data.name == 'minecraft:cobblestone' do
+                while has_block and (data.name == 'minecraft:lava' or data.name == 'minecraft:obsidian' or data.name == 'minecraft:cobblestone') do
                     mine_forward()
                     move_forward()
                 end
