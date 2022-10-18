@@ -97,8 +97,6 @@ main_tunnel [length] <width> <height>
 ### Description
 Incomplete program to make stairs descending into a mine
 
-### Usage
-
 ---
 ## mine
 ### Description
@@ -153,6 +151,7 @@ refuel <amount> [dir]
 ## retrostd
 ### Description
 Library to be used by any ComputerCraft computer
+
 ---
 ## retroturtle
 ### Description
