@@ -8,7 +8,6 @@ function main()
     run_subroutines(SUBROUTINES)
     local length = tonumber(arg[1])
     local width = tonumber(arg[2])
-    local height = tonumber(arg[3])
     clear_land(length, width)
 end
 
